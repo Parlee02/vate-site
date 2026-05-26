@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VATE — Aquaculture Compliance & Operations Platform</title>
+  <meta name="description" content="VATE helps aquaculture operators manage permits, movement records, PCPs, site logs, environmental monitoring, and annual reporting — built for Atlantic Canada." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #0f172a; -webkit-font-smoothing: antialiased; }
+
+    /* ── NAV ── */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.96); backdrop-filter: blur(16px);
+      border-bottom: 1px solid #e2e8f0; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .nav-inner {
+      max-width: 1280px; margin: 0 auto; padding: 0 32px;
+      height: 64px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-text { color: #0f172a; font-weight: 700; font-size: 15px; letter-spacing: -0.02em; }
+    .nav-links { display: flex; align-items: center; gap: 2px; }
+    .nav-links a {
+      color: #64748b; text-decoration: none; font-size: 14px; font-weight: 500;
+      padding: 6px 14px; border-radius: 8px; transition: all 0.15s;
+    }
+    .nav-links a:hover { color: #0f172a; background: #f1f5f9; }
+    .nav-cta {
+      background: #0d9488; color: #fff; font-weight: 700; font-size: 13px;
+      padding: 8px 18px; border-radius: 8px; text-decoration: none; transition: background 0.15s;
+    }
+    .nav-cta:hover { background: #0f766e; }
+
+    /* ── HERO (dark — real photo background) ── */
+    #hero {
+      position: relative; min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      overflow: hidden; padding-top: 64px;
+    }
+    .hero-photo {
+      position: absolute; inset: 0;
+      background: url('img/hero-aerial.jpg') center center / cover no-repeat;
+      z-index: 0;
+    }
+    .hero-photo::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(5,10,20,0.82) 0%, rgba(7,15,28,0.68) 55%, rgba(5,12,24,0.78) 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 1;
+      max-width: 1280px; margin: 0 auto; padding: 80px 32px 60px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+    }
+    .pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(45,212,191,0.12); border: 1px solid rgba(45,212,191,0.3);
+      color: #5eead4; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 100px;
+    }
+    .pill-dot { width: 5px; height: 5px; border-radius: 50%; background: #2dd4bf; animation: pulse 2.5s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    @keyframes stationPulse { 0%{transform:scale(1);opacity:0.7} 70%{transform:scale(2.8);opacity:0} 100%{transform:scale(1);opacity:0} }
+    .station-dot { width:14px;height:14px;border-radius:50%;background:#f59e0b;border:2.5px solid #fff;position:relative;z-index:2;flex-shrink:0; }
+    .station-ring { position:absolute;width:14px;height:14px;border-radius:50%;background:rgba(245,158,11,0.45);animation:stationPulse 2s ease-out infinite; }
+    .station-marker { position:absolute;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;width:20px;height:20px; }
+    .vate-popup { position:absolute;background:#0c1a2e;border:1px solid rgba(45,212,191,0.22);border-radius:12px;width:208px;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,0.55);pointer-events:none; }
+    .vp-header { padding:10px 12px 8px;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;justify-content:space-between;align-items:flex-start;gap:8px; }
+    .vp-station { font-size:9px;font-weight:700;color:#2dd4bf;letter-spacing:.09em;font-family:Inter,sans-serif; }
+    .vp-site { font-size:11px;color:rgba(255,255,255,0.38);margin-top:2px;font-family:Inter,sans-serif; }
+    .vp-badge { font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap;flex-shrink:0;font-family:Inter,sans-serif; }
+    .vp-badge.ok { background:rgba(74,222,128,0.14);color:#4ade80; }
+    .vp-badge.wn { background:rgba(251,191,36,0.14);color:#fbbf24; }
+    .vp-body { padding:8px 12px 6px;display:flex;flex-direction:column;gap:5px; }
+    .vp-row { display:flex;justify-content:space-between;align-items:center; }
+    .vp-lbl { font-size:11px;color:rgba(255,255,255,0.35);font-family:Inter,sans-serif; }
+    .vp-val { font-size:12px;font-weight:600;font-family:Inter,sans-serif;color:#fff; }
+    .vp-val.g { color:#4ade80; } .vp-val.w { color:#fbbf24; } .vp-val.d { color:#f87171; }
+    .vp-footer { padding:6px 12px 8px;border-top:1px solid rgba(255,255,255,0.07);font-size:10px;color:rgba(255,255,255,0.25);font-family:Inter,sans-serif; }
+    h1 {
+      font-size: clamp(36px, 4.5vw, 58px); font-weight: 800;
+      line-height: 1.05; letter-spacing: -0.03em; color: #fff; margin: 18px 0 22px;
+    }
+    h1 .accent { color: #2dd4bf; }
+    .hero-sub { font-size: 17px; color: #94a3b8; line-height: 1.7; max-width: 460px; margin-bottom: 36px; }
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #0d9488; color: #fff; font-weight: 700; font-size: 14px;
+      padding: 12px 24px; border-radius: 10px; text-decoration: none; transition: background 0.15s;
+    }
+    .btn-primary:hover { background: #0f766e; }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid rgba(255,255,255,0.18); color: #cbd5e1; font-size: 14px; font-weight: 500;
+      padding: 12px 24px; border-radius: 10px; text-decoration: none; transition: all 0.15s;
+    }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.35); color: #fff; }
+
+/* ── APP MOCKUP ── */
+    .hero-mockup {
+      border-radius: 14px; overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.08);
+    }
+    .mockup-bar {
+      background: #f8fafc; padding: 10px 14px;
+      display: flex; align-items: center; gap: 6px; border-bottom: 1px solid #e2e8f0;
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .mockup-url {
+      flex: 1; margin-left: 8px; background: #fff; border: 1px solid #e2e8f0; border-radius: 6px;
+      font-size: 11px; color: #94a3b8; padding: 4px 10px; max-width: 280px;
+    }
+    .mockup-body { background: #f8fafc; display: flex; min-height: 320px; }
+    .mockup-sidebar {
+      width: 168px; background: #fff; border-right: 1px solid #f1f5f9;
+      padding: 14px 0; flex-shrink: 0; display: flex; flex-direction: column;
+    }
+    .sidebar-logo {
+      display: flex; align-items: center; gap: 7px;
+      padding: 0 12px 12px; border-bottom: 1px solid #f1f5f9; margin-bottom: 6px;
+    }
+    .sidebar-logo span { color: #0f172a; font-weight: 700; font-size: 12px; }
+    .nav-item {
+      display: flex; align-items: center; gap: 8px;
+      padding: 6px 10px; margin: 0 6px; border-radius: 7px; font-size: 11px;
+    }
+    .nav-item.active { background: #f0fdfa; }
+    .nav-item.active .ni { color: #0d9488; font-weight: 600; }
+    .ni { color: #94a3b8; }
+    .mockup-main { flex: 1; padding: 14px; background: #f8fafc; overflow: hidden; }
+    .mockup-title { font-size: 12px; font-weight: 700; color: #0f172a; margin-bottom: 2px; }
+    .mockup-sub { font-size: 10px; color: #94a3b8; margin-bottom: 12px; }
+    .badge-warn {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: #fef2f2; border: 1px solid #fecaca;
+      border-radius: 6px; padding: 3px 8px; font-size: 10px; color: #dc2626; float: right;
+    }
+    .mockup-table { border: 1px solid #e2e8f0; border-radius: 10px; overflow: hidden; background: #fff; }
+    .table-head {
+      background: #f8fafc; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      padding: 6px 10px; border-bottom: 1px solid #f1f5f9;
+      font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #94a3b8;
+    }
+    .table-row {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      padding: 6px 10px; border-bottom: 1px solid #f8fafc;
+      font-size: 10px; align-items: center;
+    }
+    .table-row:last-child { border-bottom: none; }
+    .table-row.warn { background: #fffbeb; }
+    .td-m { color: #0f172a; font-weight: 500; font-size: 10px; }
+    .td-c { color: #94a3b8; }
+    .tag { display: inline-block; border-radius: 4px; font-size: 9px; font-weight: 600; padding: 2px 6px; }
+    .tag-ok   { background: #dcfce7; color: #16a34a; }
+    .tag-warn { background: #fef3c7; color: #d97706; }
+    .td-e { color: #475569; } .td-e.u { color: #dc2626; font-weight: 600; }
+
+    /* ── MARQUEE ── */
+    .marquee-wrap {
+      background: #fff; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;
+      overflow: hidden; padding: 11px 0;
+    }
+    .marquee-track { display: flex; white-space: nowrap; animation: marquee 30s linear infinite; }
+    .marquee-track span { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #cbd5e1; padding: 0 22px; }
+    .marquee-track span.a { color: #0d9488; opacity: 0.5; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── SHARED ── */
+    section { padding: 88px 0; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #0d9488; margin-bottom: 14px; }
+    h2 { font-size: clamp(26px, 3vw, 40px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; color: #0f172a; margin-bottom: 16px; }
+    .section-lead { font-size: 17px; color: #64748b; line-height: 1.7; max-width: 560px; }
+
+    /* ── PROBLEM ── */
+    #problem { background: #fff; }
+    .problem-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-top: 56px; }
+    .problem-card { background: #fff; border: 1px solid #fee2e2; border-radius: 14px; padding: 22px; }
+    .problem-icon { width: 34px; height: 34px; border-radius: 8px; background: #fef2f2; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+    .problem-card h3 { font-size: 13px; font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+    .problem-card p { font-size: 12px; color: #64748b; line-height: 1.6; }
+
+    /* ── PHOTO DIVIDER ── */
+    .photo-divider {
+      position: relative; overflow: hidden;
+      background: #0a1628;
+    }
+    .photo-divider-img {
+      position: absolute; inset: 0;
+      background: url('img/oysters.jpg') center 60% / cover no-repeat;
+      opacity: 0.28;
+    }
+    .photo-divider-content {
+      position: relative; z-index: 1;
+      max-width: 860px; margin: 0 auto; padding: 80px 32px;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+    }
+    .photo-divider-quote {
+      font-size: clamp(22px, 2.8vw, 32px); font-weight: 700; color: #fff;
+      line-height: 1.45; letter-spacing: -0.02em; margin-bottom: 48px;
+    }
+    .photo-divider-quote span { color: #2dd4bf; }
+    .photo-divider-stats {
+      display: flex; gap: 0; border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 40px; width: 100%;
+    }
+    .pd-stat {
+      flex: 1; display: flex; flex-direction: column; align-items: center;
+      padding: 0 24px;
+    }
+    .pd-stat + .pd-stat { border-left: 1px solid rgba(255,255,255,0.1); }
+    .pd-stat .n { font-size: 32px; font-weight: 800; color: #fff; letter-spacing: -0.04em; line-height: 1; margin-bottom: 8px; }
+    .pd-stat .l { font-size: 13px; color: #64748b; line-height: 1.4; }
+
+    /* ── PLATFORM ── */
+    #platform { background: #f8fafc; }
+    .platform-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 0; margin-top: 56px;
+      border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden;
+    }
+    .platform-card { background: #fff; padding: 28px; border-right: 1px solid #e2e8f0; transition: background 0.2s; }
+    .platform-card:last-child { border-right: none; }
+    .platform-card:hover { background: #f8fafc; }
+    .platform-icon { width: 40px; height: 40px; border-radius: 10px; border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+    .platform-card h3 { font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 8px; }
+    .platform-card p { font-size: 13px; color: #64748b; line-height: 1.6; margin-bottom: 16px; }
+    .feat-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .feat-list li { display: flex; align-items: flex-start; gap: 7px; font-size: 12px; color: #475569; line-height: 1.5; }
+    .feat-list li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: #0d9488; flex-shrink: 0; margin-top: 6px; }
+
+    /* ── GIS ── */
+    #gis { background: #fff; border-top: 1px solid #e2e8f0; padding: 80px 0; }
+    .gis-inner { max-width: 1280px; margin: 0 auto; padding: 0 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .gis-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      border: 1px solid #99f6e4; border-radius: 6px;
+      padding: 4px 10px; font-size: 11px; color: #0d9488; font-weight: 600; margin-top: 24px; margin-bottom: 8px; background: #f0fdfa;
+    }
+    .gis-live { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; animation: pulse 2s infinite; }
+    .gis-meta { font-size: 12px; color: #94a3b8; }
+    .gis-map-wrap {
+      aspect-ratio: 1 / 1; display: flex; flex-direction: column;
+      border-radius: 18px; overflow: hidden; border: 1px solid #e2e8f0;
+      box-shadow: 0 8px 32px rgba(15,23,42,0.1);
+    }
+    .gis-bar {
+      background: #f8fafc; border-bottom: 1px solid #e2e8f0;
+      padding: 10px 16px; display: flex; align-items: center; gap: 10px;
+    }
+    .gis-bar-title { font-size: 12px; font-weight: 600; color: #0f172a; margin-left: 4px; flex: 1; }
+    .gis-tags { display: flex; gap: 6px; }
+    .gtag { font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 5px; border: 1px solid #e2e8f0; }
+    .gtag.on { background: #f0fdfa; border-color: #99f6e4; color: #0d9488; }
+    .gtag.off { color: #94a3b8; }
+
+    /* ── INTELLIGENCE ── */
+    #intelligence { background: #f8fafc; border-top: 1px solid #e2e8f0; }
+    .ai-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .ai-chat { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 32px rgba(15,23,42,0.08); }
+    .ai-chat-hdr { background: #f8fafc; border-bottom: 1px solid #e2e8f0; padding: 13px 18px; display: flex; align-items: center; gap: 10px; }
+    .ai-chat-title { font-size: 13px; font-weight: 700; color: #0f172a; }
+    .ai-badge { background: #f0fdfa; border: 1px solid #99f6e4; color: #0d9488; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; letter-spacing: 0.04em; text-transform: uppercase; }
+    .ai-msgs { padding: 18px; display: flex; flex-direction: column; gap: 14px; }
+    .msg { display: flex; gap: 8px; }
+    .msg-u { flex-direction: row-reverse; }
+    .avatar { width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; }
+    .msg-u .avatar { background: #e0f2fe; color: #0369a1; }
+    .msg-a .avatar { background: #f0fdfa; color: #0d9488; }
+    .bubble { max-width: 86%; padding: 9px 13px; border-radius: 10px; font-size: 12px; line-height: 1.6; }
+    .msg-u .bubble { background: #0d9488; color: #fff; border-radius: 10px 2px 10px 10px; }
+    .msg-a .bubble { background: #f8fafc; color: #0f172a; border-radius: 2px 10px 10px 10px; border: 1px solid #e2e8f0; }
+    .msg-a .bubble strong { color: #0d9488; }
+    .ai-input-bar { border-top: 1px solid #e2e8f0; padding: 11px 14px; display: flex; gap: 8px; align-items: center; background: #f8fafc; }
+    .ai-inp { flex: 1; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px; font-size: 12px; color: #94a3b8; font-family: inherit; }
+    .ai-send { width: 30px; height: 30px; border-radius: 8px; background: #0d9488; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .ai-feat { display: flex; align-items: flex-start; gap: 12px; }
+    .ai-feat-icon { width: 30px; height: 30px; border-radius: 8px; background: #f0fdfa; border: 1px solid #99f6e4; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .ai-feat-title { font-size: 14px; font-weight: 600; color: #0f172a; margin-bottom: 3px; }
+    .ai-feat-desc { font-size: 13px; color: #64748b; }
+
+    /* ── TRUST ── */
+    #trust { background: #fff; border-top: 1px solid #e2e8f0; padding: 56px 0; }
+    .trust-inner { max-width: 1280px; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+    .trust-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #94a3b8; margin-bottom: 20px; }
+    .trust-items { display: flex; gap: 0; }
+    .trust-item {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 20px; border-right: 1px solid #e2e8f0; font-size: 13px; font-weight: 500; color: #475569;
+    }
+    .trust-item:last-child { border-right: none; }
+    .trust-item svg { flex-shrink: 0; }
+
+    /* ── BUILT FOR YOU ── */
+    #built-for-you { background: #f8fafc; border-top: 1px solid #e2e8f0; }
+    .operator-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-top: 52px; }
+    .operator-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+    .op-tag { font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 4px; display: inline-flex; align-self: flex-start; }
+    .op-modules { list-style: none; display: flex; flex-direction: column; gap: 5px; margin-top: 4px; }
+    .op-modules li { font-size: 12px; color: #475569; display: flex; align-items: flex-start; gap: 7px; line-height: 1.4; }
+    .op-modules li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: #0d9488; flex-shrink: 0; margin-top: 5px; }
+    .operator-card h3 { font-size: 14px; font-weight: 700; color: #0f172a; }
+    .operator-card p { font-size: 12px; color: #64748b; line-height: 1.6; }
+    .onboarding-strip { margin-top: 52px; background: #0f172a; border-radius: 16px; padding: 40px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .onboarding-strip h3 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.02em; line-height: 1.35; }
+    .onboarding-strip p { font-size: 14px; color: #64748b; margin-top: 8px; line-height: 1.7; }
+    .onboarding-steps { display: flex; flex-direction: column; gap: 0; }
+    .onboarding-step { display: flex; align-items: flex-start; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .onboarding-step:last-child { border-bottom: none; }
+    .onboarding-num { width: 22px; height: 22px; border-radius: 50%; background: rgba(13,148,136,0.2); border: 1px solid rgba(13,148,136,0.4); color: #2dd4bf; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .onboarding-step-text { font-size: 13px; color: #e2e8f0; line-height: 1.5; }
+    .onboarding-step-text span { display: block; font-size: 12px; color: #64748b; margin-top: 2px; }
+
+    /* ── WHO ── */
+    #who { background: #fff; border-top: 1px solid #e2e8f0; }
+    .who-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 48px; }
+    .who-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 24px; }
+    .who-tag { display: inline-flex; font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 4px; margin-bottom: 12px; }
+    .who-card h3 { font-size: 14px; font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+    .who-card p { font-size: 12px; color: #64748b; line-height: 1.6; }
+
+    /* ── FORM ── */
+    #access { background: #fff; border-top: 1px solid #e2e8f0; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+    .form-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 32px; }
+    .field-group { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+    .field-label { font-size: 12px; font-weight: 600; color: #475569; }
+    .field-input {
+      background: #fff; border: 1px solid #e2e8f0; border-radius: 9px;
+      padding: 10px 14px; font-size: 14px; color: #0f172a;
+      font-family: inherit; outline: none; transition: border-color 0.15s; width: 100%;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    .field-input::placeholder { color: #94a3b8; }
+    .field-input:focus { border-color: #0d9488; box-shadow: 0 0 0 3px rgba(13,148,136,0.1); }
+    select.field-input { cursor: pointer; } textarea.field-input { resize: vertical; min-height: 80px; }
+    .submit-btn {
+      width: 100%; background: #0d9488; color: #fff; font-weight: 700; font-size: 14px;
+      padding: 13px; border-radius: 10px; border: none; cursor: pointer; font-family: inherit;
+      transition: background 0.15s; margin-top: 6px;
+    }
+    .submit-btn:hover { background: #0f766e; }
+    .form-note { font-size: 11px; color: #94a3b8; text-align: center; margin-top: 10px; }
+
+    /* ── FOOTER ── */
+    footer { background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 32px; text-align: center; }
+    footer p { font-size: 12px; color: #94a3b8; }
+    footer a { color: #94a3b8; text-decoration: none; }
+
+    @media (max-width: 1024px) {
+      .hero-content { grid-template-columns: 1fr; }
+      .problem-grid { grid-template-columns: repeat(2,1fr); }
+      .platform-grid { grid-template-columns: 1fr; }
+      .platform-card { border-right: none; border-bottom: 1px solid #e2e8f0; }
+      .platform-card:last-child { border-bottom: none; }
+      .ai-grid { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; gap: 40px; }
+      .who-grid { grid-template-columns: 1fr 1fr; }
+      .gis-inner { grid-template-columns: 1fr; }
+      .gis-map-wrap { aspect-ratio: 4 / 3; }
+      .trust-inner { flex-direction: column; }
+    }
+    @media (max-width: 640px) {
+      .problem-grid { grid-template-columns: 1fr; }
+      .who-grid { grid-template-columns: 1fr; }
+
+      .gis-map-wrap { margin: 0 0 48px; border-radius: 0; }
+      .photo-divider-stats { flex-direction: column; }
+      .pd-stat + .pd-stat { border-left: none; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; }
+      .pd-stat { padding: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══════════════════════════════════════════════════════════════════ -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <svg width="26" height="17" viewBox="0 0 28 18" fill="none">
+        <path d="M1 9C4 3 8 3 11 9c3 6 7 6 10 0" stroke="#2dd4bf" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+        <path d="M5 13c3-6 7-6 10 0s7 6 10 0" stroke="#2dd4bf" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.4"/>
+      </svg>
+      <span class="nav-logo-text">VATE</span>
+    </a>
+    <div class="nav-links">
+      <a href="#platform">Platform</a>
+      <a href="#gis">Mapping</a>
+      <a href="#intelligence">Intelligence</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <a href="http://localhost:3000/login" style="font-size:13px;font-weight:500;color:#64748b;text-decoration:none;padding:6px 14px;border-radius:8px;transition:color 0.15s" onmouseover="this.style.color='#0f172a'" onmouseout="this.style.color='#64748b'">Log in</a>
+      <a href="#access" class="nav-cta">Request access</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HERO ═════════════════════════════════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-photo"></div>
+
+  <div class="hero-content">
+    <div>
+      <div class="pill"><span class="pill-dot"></span>Aquaculture · Atlantic Canada</div>
+      <h1 style="margin-top:18px">
+        Operations and compliance<br/>
+        <span class="accent">built for the water.</span>
+      </h1>
+      <p class="hero-sub">
+        The operational system for Atlantic Canada aquaculture — configured around your sites, species, workflows, and permits.
+      </p>
+      <div class="hero-ctas">
+        <a href="#access" class="btn-primary">
+          Request operator access
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+        <a href="#platform" class="btn-secondary">See the platform</a>
+      </div>
+    </div>
+
+    <!-- App mockup -->
+    <div class="hero-mockup">
+      <div class="mockup-bar">
+        <div class="dot" style="background:#ff5f57"></div>
+        <div class="dot" style="background:#ffbd2e"></div>
+        <div class="dot" style="background:#28c840"></div>
+        <div class="mockup-url">app.vatemarine.com / compliance</div>
+      </div>
+      <div class="mockup-body">
+        <div class="mockup-sidebar">
+          <div class="sidebar-logo">
+            <svg width="13" height="8" viewBox="0 0 28 18" fill="none"><path d="M1 9C4 3 8 3 11 9c3 6 7 6 10 0" stroke="#0d9488" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg>
+            <span>VATE</span>
+          </div>
+          <div class="nav-item"><svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="#cbd5e1" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg><span class="ni">Dashboard</span></div>
+          <div class="nav-item active"><svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="#0d9488" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span class="ni">Compliance</span></div>
+          <div class="nav-item"><svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="#cbd5e1" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg><span class="ni">Field Ops</span></div>
+          <div class="nav-item"><svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="#cbd5e1" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span class="ni">Monitoring</span></div>
+          <div class="nav-item"><svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="#cbd5e1" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg><span class="ni">Site Map</span></div>
+          <div class="nav-item"><svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="#cbd5e1" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg><span class="ni">Ask VATE</span></div>
+          <div style="margin-top:auto;padding:10px 8px 2px;border-top:1px solid #f1f5f9">
+            <div style="display:flex;align-items:center;gap:7px;padding:0 4px">
+              <div style="width:20px;height:20px;border-radius:50%;background:#f0fdfa;border:1px solid #99f6e4;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#0d9488;flex-shrink:0">HP</div>
+              <div>
+                <div style="font-size:10px;font-weight:600;color:#0f172a">Heron Point Farm</div>
+                <div style="font-size:9px;color:#94a3b8">Shellfish · N.S.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mockup-main">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px">
+            <div>
+              <div class="mockup-title">Compliance & Documentation</div>
+              <div class="mockup-sub">Document registry · 14 records</div>
+            </div>
+            <div class="badge-warn"><div style="width:5px;height:5px;border-radius:50%;background:#dc2626;flex-shrink:0"></div>2 expiring</div>
+          </div>
+          <div class="mockup-table">
+            <div class="table-head"><span>Document</span><span>Category</span><span>Status</span><span>Expires</span></div>
+            <div class="table-row"><span class="td-m">Aquaculture Lease — Site 4B</span><span class="td-c">Permit</span><span><span class="tag tag-ok">Current</span></span><span class="td-e">Mar 2027</span></div>
+            <div class="table-row warn"><span class="td-m">CFIA Registration Certificate</span><span class="td-c">CFIA</span><span><span class="tag tag-warn">Expiring</span></span><span class="td-e u">38 days</span></div>
+            <div class="table-row"><span class="td-m">Preventive Control Plan v2.1</span><span class="td-c">PCP</span><span><span class="tag tag-ok">Current</span></span><span class="td-e">—</span></div>
+            <div class="table-row warn"><span class="td-m">NS Aquaculture Licence</span><span class="td-c">Licence</span><span><span class="tag tag-warn">Expiring</span></span><span class="td-e u">51 days</span></div>
+            <div class="table-row"><span class="td-m">DFO Movement Permit #2024-118</span><span class="td-c">Movement</span><span><span class="tag tag-ok">Submitted</span></span><span class="td-e">Aug 2026</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══ MARQUEE ════════════════════════════════════════════════════════════════ -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>DFO Annual Aquaculture Report</span><span class="a">·</span>
+    <span>Movement Records Form 5758</span><span class="a">·</span>
+    <span>CFIA Preventive Control Plans</span><span class="a">·</span>
+    <span>Environmental Monitoring</span><span class="a">·</span>
+    <span>Lease & Permit Registry</span><span class="a">·</span>
+    <span>GIS Site Mapping</span><span class="a">·</span>
+    <span>Mortality Logging</span><span class="a">·</span>
+    <span>Field Operations Logbook</span><span class="a">·</span>
+    <span>VATE Intelligence</span><span class="a">·</span>
+    <span>DFO Annual Aquaculture Report</span><span class="a">·</span>
+    <span>Movement Records Form 5758</span><span class="a">·</span>
+    <span>CFIA Preventive Control Plans</span><span class="a">·</span>
+    <span>Environmental Monitoring</span><span class="a">·</span>
+    <span>Lease & Permit Registry</span><span class="a">·</span>
+    <span>GIS Site Mapping</span><span class="a">·</span>
+    <span>Mortality Logging</span><span class="a">·</span>
+    <span>Field Operations Logbook</span><span class="a">·</span>
+    <span>VATE Intelligence</span><span class="a">·</span>
+  </div>
+</div>
+
+<!-- ══ PROBLEM ════════════════════════════════════════════════════════════════ -->
+<section id="problem">
+  <div class="container">
+    <p class="section-label">The problem</p>
+    <h2>Aquaculture operations still run on spreadsheets, binders, and disconnected systems.</h2>
+    <p class="section-lead">Every farm runs across too many tools. Movement records in a spreadsheet. PCPs in a binder. Water quality on paper. When a CFIA inspector shows up, you spend an hour assembling what should take one click.</p>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-icon"><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="#ef4444" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
+        <h3>Disconnected spreadsheets</h3>
+        <p>Movement logs, mortality records, and sampling data across versions with no audit trail.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon"><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="#ef4444" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg></div>
+        <h3>Paper binders</h3>
+        <p>PCPs and inspection reports in folders — unsearchable, easy to lose, impossible to share.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon"><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="#ef4444" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+        <h3>Siloed GIS</h3>
+        <p>Lease boundaries in one system, monitoring stations in another — no connection to compliance.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon"><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="#ef4444" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+        <h3>Missed deadlines</h3>
+        <p>Permit expiries buried in email. Annual DFO reports assembled from scratch every year.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PHOTO DIVIDER ══════════════════════════════════════════════════════════ -->
+<div class="photo-divider">
+  <div class="photo-divider-img"></div>
+  <div class="photo-divider-content">
+    <p class="photo-divider-quote">
+      "The paperwork burden falls on the same person managing the <span>water</span>, the <span>staff</span>, and the <span>harvest</span>."
+    </p>
+    <div class="photo-divider-stats">
+      <div class="pd-stat"><div class="n">14+</div><div class="l">Regulatory document types</div></div>
+      <div class="pd-stat"><div class="n">3</div><div class="l">Federal agencies to report to</div></div>
+      <div class="pd-stat"><div class="n">5+</div><div class="l">Tools VATE replaces</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PLATFORM ═══════════════════════════════════════════════════════════════ -->
+<section id="platform">
+  <div class="container">
+    <p class="section-label">The platform</p>
+    <h2>One system. Built around your operation.</h2>
+    <p class="section-lead">Start where it matters most to you. VATE connects your farm operations, your sites, and your reporting — so everything talks to everything else.</p>
+    <div class="platform-grid">
+      <div class="platform-card">
+        <div class="platform-icon" style="background:#f0fdfa">
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#0d9488" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        </div>
+        <h3>Operations & Compliance</h3>
+        <p>Your permits, PCPs, movement records, and field logs — in one place, always current, always ready.</p>
+        <ul class="feat-list">
+          <li>Permit & licence registry with expiry alerts</li>
+          <li>Form 5758 movement records</li>
+          <li>PCP builder and document vault</li>
+          <li>Field logs, mortality events, sampling records</li>
+          <li>Annual Aquaculture Report automation</li>
+        </ul>
+      </div>
+      <div class="platform-card">
+        <div class="platform-icon" style="background:#f5f3ff">
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#7c3aed" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+        </div>
+        <h3>Mapping & Monitoring</h3>
+        <p>Your lease boundaries, monitoring stations, and environmental data — on one live map connected directly to your records.</p>
+        <ul class="feat-list">
+          <li>GIS site map with lease polygons</li>
+          <li>Environmental monitoring — DO, temp, salinity, pH</li>
+          <li>Station overlays and trend views</li>
+          <li>CFIA harvesting area tracking</li>
+          <li>Real-time site status across all locations</li>
+        </ul>
+      </div>
+      <div class="platform-card">
+        <div class="platform-icon" style="background:#fffbeb">
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#d97706" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <h3>VATE Intelligence</h3>
+        <p>Ask VATE anything about your operation. Get charts, drafted reports, and risk alerts — from your actual farm data.</p>
+        <ul class="feat-list">
+          <li>Natural language queries over your live data</li>
+          <li>Inline trend charts — DO, temperature, mortality</li>
+          <li>Draft PCP and annual report sections</li>
+          <li>Permit risk alerts and deadline tracking</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ BUILT FOR YOU ══════════════════════════════════════════════════════════ -->
+<section id="built-for-you">
+  <div class="container">
+    <p class="section-label">Built around your operation</p>
+    <h2>No two farms operate the same way.<br/>Your software shouldn't either.</h2>
+    <p class="section-lead">VATE is configured around your sites, species, permits, staff, and workflows — not the other way around. Start with the modules you actually need. We adapt to how you already work.</p>
+    <div class="operator-grid">
+      <div class="operator-card">
+        <div class="op-tag" style="background:#f0fdfa;color:#0d9488;border:1px solid #99f6e4">Shellfish producer</div>
+        <h3>Oysters & mussels</h3>
+        <p>Configured for CFIA food safety zones, DFO lease records, and live transport compliance.</p>
+        <ul class="op-modules">
+          <li>Form 5758 movement records</li>
+          <li>CFIA harvesting area tracking</li>
+          <li>PCP & sanitary surveys</li>
+          <li>Harvesting & seeding event logs</li>
+          <li>Water quality by site</li>
+        </ul>
+      </div>
+      <div class="operator-card">
+        <div class="op-tag" style="background:#f5f3ff;color:#7c3aed;border:1px solid #ddd6fe">Finfish operation</div>
+        <h3>Salmon & trout</h3>
+        <p>Built for complex mortality reporting, DFO annual returns, and environmental monitoring requirements.</p>
+        <ul class="op-modules">
+          <li>Daily mortality by pen & cause</li>
+          <li>Sea lice monitoring logs</li>
+          <li>Treatment records & withdrawals</li>
+          <li>DFO Annual Aquaculture Report</li>
+          <li>Net pen inspections</li>
+        </ul>
+      </div>
+      <div class="operator-card">
+        <div class="op-tag" style="background:#fffbeb;color:#d97706;border:1px solid #fde68a">Multi-site operator</div>
+        <h3>Multiple leases</h3>
+        <p>One dashboard across all your sites, with staff assigned by location and consolidated reporting.</p>
+        <ul class="op-modules">
+          <li>Cross-site compliance overview</li>
+          <li>Staff & crew assignment by site</li>
+          <li>Aggregate permit expiry tracking</li>
+          <li>Site-specific field log templates</li>
+          <li>GIS map across all leases</li>
+        </ul>
+      </div>
+      <div class="operator-card">
+        <div class="op-tag" style="background:#fef2f2;color:#dc2626;border:1px solid #fecaca">Consultant & advisor</div>
+        <h3>Multiple clients</h3>
+        <p>Manage records across several operations from one login, with client-separated data and reporting.</p>
+        <ul class="op-modules">
+          <li>Multi-org switching</li>
+          <li>Client-specific permit structures</li>
+          <li>Shared field templates</li>
+          <li>Consolidated annual report drafting</li>
+          <li>Audit-ready record exports</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="onboarding-strip">
+      <div>
+        <h3>We configure VATE around your operation — not the other way around.</h3>
+        <p>When you join, we don't hand you a login and a help doc. We map your existing workflow and build around it.</p>
+      </div>
+      <div class="onboarding-steps">
+        <div class="onboarding-step">
+          <div class="onboarding-num">1</div>
+          <div class="onboarding-step-text">We map your existing workflow
+            <span>Sites, species, permits, staff structure, and reporting requirements — all captured before we configure anything.</span>
+          </div>
+        </div>
+        <div class="onboarding-step">
+          <div class="onboarding-num">2</div>
+          <div class="onboarding-step-text">We migrate your records
+            <span>Spreadsheets, binders, PDFs, and paper logs — brought in and organized in VATE so nothing gets left behind.</span>
+          </div>
+        </div>
+        <div class="onboarding-step">
+          <div class="onboarding-num">3</div>
+          <div class="onboarding-step-text">Your team keeps working the way they already do
+            <span>Custom forms, field templates, and dashboards configured for how your crew actually operates on the water.</span>
+          </div>
+        </div>
+        <div class="onboarding-step">
+          <div class="onboarding-num">4</div>
+          <div class="onboarding-step-text">Your operation grows into the platform
+            <span>Add modules as you need them. VATE scales with your operation — from one site to fifteen.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GIS ════════════════════════════════════════════════════════════════════ -->
+<section id="gis">
+  <div class="gis-inner">
+    <div class="gis-text">
+      <p class="section-label">Mapping & Monitoring</p>
+      <h2>Every site. One operational map.</h2>
+      <p class="section-lead">Lease boundaries, monitoring stations, and environmental readings — on one live map that connects directly to your farm records and reporting.</p>
+      <div class="gis-badge"><span class="gis-live"></span>Live data</div>
+      <p class="gis-meta">Updated 2 min ago · 3 sites · 2 stations</p>
+    </div>
+    <div class="gis-map-wrap">
+      <div class="gis-bar">
+        <div class="dot" style="background:#ff5f57"></div>
+        <div class="dot" style="background:#ffbd2e"></div>
+        <div class="dot" style="background:#28c840"></div>
+        <div class="gis-bar-title">VATE Site Map — Heron Point</div>
+        <div class="gis-tags">
+          <div class="gtag on">Leases</div>
+          <div class="gtag on">Monitoring</div>
+          <div class="gtag off">CFIA</div>
+        </div>
+      </div>
+      <div id="gis-satellite-map" style="width:100%;flex:1;min-height:0"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ INTELLIGENCE ═══════════════════════════════════════════════════════════ -->
+<section id="intelligence">
+  <div class="container">
+    <div class="ai-grid">
+      <div>
+        <p class="section-label">Ask VATE</p>
+        <h2>Operational intelligence, not AI hype.</h2>
+        <p class="section-lead" style="margin-bottom:32px">VATE reads your live data and answers in plain language. Compliance gaps, trend charts, drafted reports — from your actual records.</p>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div class="ai-feat">
+            <div class="ai-feat-icon"><svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="#0d9488" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+            <div><div class="ai-feat-title">Reads your live data</div><div class="ai-feat-desc">Every answer draws from your actual permits, logs, and readings — not generic training data.</div></div>
+          </div>
+          <div class="ai-feat">
+            <div class="ai-feat-icon"><svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="#0d9488" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg></div>
+            <div><div class="ai-feat-title">Generates charts inline</div><div class="ai-feat-desc">Ask for a DO trend or 90-day mortality summary — chart renders directly in the conversation.</div></div>
+          </div>
+          <div class="ai-feat">
+            <div class="ai-feat-icon"><svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="#0d9488" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg></div>
+            <div><div class="ai-feat-title">Drafts compliance documents</div><div class="ai-feat-desc">PCP narrative, annual report sections, inspection prep — pulled from your operational data.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="ai-chat">
+        <div class="ai-chat-hdr">
+          <svg width="15" height="10" viewBox="0 0 28 18" fill="none"><path d="M1 9C4 3 8 3 11 9c3 6 7 6 10 0" stroke="#0d9488" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg>
+          <span class="ai-chat-title">Ask VATE</span>
+          <span class="ai-badge">Intelligence</span>
+        </div>
+        <div class="ai-msgs">
+          <div class="msg msg-u"><div class="avatar">AP</div><div class="bubble">What compliance issues do we have?</div></div>
+          <div class="msg msg-a">
+            <div class="avatar"><svg width="11" height="7" viewBox="0 0 28 18" fill="none"><path d="M1 9C4 3 8 3 11 9c3 6 7 6 10 0" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg></div>
+            <div class="bubble">
+              <strong>2 items need attention:</strong><br/><br/>
+              <span style="display:inline-flex;align-items:center;gap:5px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.25);border-radius:5px;padding:2px 7px;font-size:11px;margin-bottom:6px;display:inline-flex"><span style="width:6px;height:6px;border-radius:50%;background:#ef4444;flex-shrink:0"></span><strong>CFIA Registration</strong> — 38 days</span><br/>
+              CFIA processing takes 4–6 weeks. Submit this week.<br/><br/>
+              <span style="display:inline-flex;align-items:center;gap:5px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:5px;padding:2px 7px;font-size:11px;margin-bottom:6px;display:inline-flex"><span style="width:6px;height:6px;border-radius:50%;background:#f59e0b;flex-shrink:0"></span><strong>NS Aquaculture Licence</strong> — 51 days</span><br/>
+              File with DNRR by June 15 to avoid a gap.
+            </div>
+          </div>
+          <div class="msg msg-u"><div class="avatar">AP</div><div class="bubble">Show me DO at Site 4B, last 90 days.</div></div>
+          <div class="msg msg-a">
+            <div class="avatar"><svg width="11" height="7" viewBox="0 0 28 18" fill="none"><path d="M1 9C4 3 8 3 11 9c3 6 7 6 10 0" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg></div>
+            <div class="bubble">
+              Avg <strong>7.6 mg/L</strong> — stable, optimal range. One flagged reading Apr 14 (<strong style="color:#d97706">5.2 mg/L</strong>) — coincides with the storm event logged that day.
+              <div style="margin-top:10px;border-radius:10px;overflow:hidden">
+                <svg viewBox="0 0 300 108" width="100%" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="doGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#0d9488" stop-opacity="0.35"/>
+                      <stop offset="100%" stop-color="#0d9488" stop-opacity="0"/>
+                    </linearGradient>
+                  </defs>
+                  <rect width="300" height="108" fill="#f8fafc" rx="0"/>
+                  <text x="36" y="10" font-family="Inter,sans-serif" font-size="6.5" font-weight="700" fill="#0d9488" letter-spacing="0.07em">DISSOLVED OXYGEN — SITE 4B · 90 DAYS</text>
+                  <text x="296" y="10" font-family="Inter,sans-serif" font-size="6.5" fill="#94a3b8" text-anchor="end">mg/L</text>
+                  <line x1="36" y1="20" x2="292" y2="20" stroke="#e2e8f0" stroke-width="1"/>
+                  <line x1="36" y1="32" x2="292" y2="32" stroke="#e2e8f0" stroke-width="1"/>
+                  <line x1="36" y1="44" x2="292" y2="44" stroke="#e2e8f0" stroke-width="1"/>
+                  <line x1="36" y1="56" x2="292" y2="56" stroke="rgba(220,38,38,0.25)" stroke-width="0.8" stroke-dasharray="4,3"/>
+                  <text x="33" y="21" font-family="Inter,sans-serif" font-size="6.5" fill="#94a3b8" text-anchor="end">9</text>
+                  <text x="33" y="33" font-family="Inter,sans-serif" font-size="6.5" fill="#94a3b8" text-anchor="end">8</text>
+                  <text x="33" y="45" font-family="Inter,sans-serif" font-size="6.5" fill="#94a3b8" text-anchor="end">7</text>
+                  <text x="33" y="57" font-family="Inter,sans-serif" font-size="6.5" fill="rgba(220,38,38,0.6)" text-anchor="end">6</text>
+                  <polygon points="36,38 62,34 92,30 122,36 148,37 176,65 206,42 235,34 264,29 292,32 292,78 36,78" fill="url(#doGrad)"/>
+                  <polyline points="36,38 62,34 92,30 122,36 148,37 176,65 206,42 235,34 264,29 292,32" fill="none" stroke="#0d9488" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+                  <circle cx="36" cy="38" r="2.5" fill="#0d9488"/>
+                  <circle cx="292" cy="32" r="2.5" fill="#0d9488"/>
+                  <circle cx="176" cy="65" r="4.5" fill="#f59e0b" stroke="#f8fafc" stroke-width="2"/>
+                  <line x1="176" y1="60" x2="176" y2="50" stroke="rgba(245,158,11,0.5)" stroke-width="0.8"/>
+                  <rect x="148" y="37" width="56" height="14" rx="3" fill="rgba(245,158,11,0.1)" stroke="rgba(245,158,11,0.35)" stroke-width="0.7"/>
+                  <text x="176" y="47" font-family="Inter,sans-serif" font-size="7" font-weight="700" fill="#d97706" text-anchor="middle">5.2 mg/L · Apr 14</text>
+                  <text x="36" y="90" font-family="Inter,sans-serif" font-size="6.5" fill="#94a3b8" text-anchor="middle">Jan</text>
+                  <text x="164" y="90" font-family="Inter,sans-serif" font-size="6.5" fill="#94a3b8" text-anchor="middle">Apr</text>
+                  <text x="292" y="90" font-family="Inter,sans-serif" font-size="6.5" fill="#94a3b8" text-anchor="middle">Jun</text>
+                  <rect x="232" y="94" width="60" height="12" rx="3" fill="#f0fdfa" stroke="#99f6e4" stroke-width="0.7"/>
+                  <text x="262" y="103" font-family="Inter,sans-serif" font-size="7" font-weight="700" fill="#0d9488" text-anchor="middle">avg 7.6 mg/L</text>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ai-input-bar">
+          <div class="ai-inp">Draft the PCP environmental monitoring section...</div>
+          <div class="ai-send"><svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TRUST ANCHORS ══════════════════════════════════════════════════════════ -->
+<section id="trust">
+  <div class="container">
+    <p class="trust-label">Why operators trust VATE</p>
+    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden">
+      <div class="trust-items">
+        <div class="trust-item">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#0d9488" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          Built in Atlantic Canada
+        </div>
+        <div class="trust-item">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#0d9488" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          Designed with aquaculture operators
+        </div>
+        <div class="trust-item">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#0d9488" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          DFO-regulated fisheries background
+        </div>
+        <div class="trust-item">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#0d9488" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Marine biology & GIS expertise
+        </div>
+        <div class="trust-item" style="border-right:none">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#0d9488" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+          Built around real compliance workflows
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WHO ════════════════════════════════════════════════════════════════════ -->
+<section id="who">
+  <div class="container">
+    <p class="section-label">Who it's for</p>
+    <h2>Built for Maritime operators.</h2>
+    <p class="section-lead">Not a generic platform adapted for aquaculture. Built around how farms in Atlantic Canada actually operate.</p>
+    <div class="who-grid">
+      <div class="who-card">
+        <div class="who-tag" style="background:#f0fdfa;color:#0d9488;border:1px solid #99f6e4">Primary</div>
+        <h3>Shellfish operators</h3>
+        <p>Oyster, mussel, and clam producers managing DFO leases, CFIA food safety, PCPs, and environmental monitoring across multiple sites.</p>
+      </div>
+      <div class="who-card">
+        <div class="who-tag" style="background:#f5f3ff;color:#7c3aed;border:1px solid #ddd6fe">Supported</div>
+        <h3>Finfish aquaculture</h3>
+        <p>Salmon and trout operations with complex movement records, mortality reporting, and DFO annual reporting requirements.</p>
+      </div>
+      <div class="who-card">
+        <div class="who-tag" style="background:#fffbeb;color:#d97706;border:1px solid #fde68a">Also</div>
+        <h3>Consultants & advisors</h3>
+        <p>Marine biologists and aquaculture consultants managing compliance records across multiple client operations.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ EARLY ACCESS ═══════════════════════════════════════════════════════════ -->
+<section id="access">
+  <div class="container">
+    <div class="form-grid">
+      <div>
+        <p class="section-label">Early access</p>
+        <h2>Talk to the VATE team.</h2>
+        <p class="section-lead" style="margin-bottom:32px">We're onboarding a small group of operators across Atlantic Canada. Tell us about your operation and we'll reach out within 48 hours.</p>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:32px">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div style="width:5px;height:5px;border-radius:50%;background:#0d9488;flex-shrink:0"></div>
+            <span style="font-size:14px;color:#475569">We configure VATE around your existing workflow</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <div style="width:5px;height:5px;border-radius:50%;background:#0d9488;flex-shrink:0"></div>
+            <span style="font-size:14px;color:#475569">We migrate your spreadsheets, binders, and forms</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <div style="width:5px;height:5px;border-radius:50%;background:#0d9488;flex-shrink:0"></div>
+            <span style="font-size:14px;color:#475569">Custom dashboards and field templates for your operation</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <div style="width:5px;height:5px;border-radius:50%;background:#0d9488;flex-shrink:0"></div>
+            <span style="font-size:14px;color:#475569">Early adopter pricing, locked for life</span>
+          </div>
+        </div>
+        <!-- Secondary CTA -->
+        <div style="background:#f0fdfa;border:1px solid #99f6e4;border-radius:12px;padding:20px">
+          <p style="font-size:13px;font-weight:600;color:#0f172a;margin-bottom:4px">Want to see VATE first?</p>
+          <p style="font-size:13px;color:#64748b;margin-bottom:14px">Book a 20-minute discovery call and we'll walk through how VATE fits your operation.</p>
+          <a href="mailto:hello@vatemarine.com?subject=Discovery Call Request" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#0d9488;text-decoration:none">
+            Book a discovery call →
+          </a>
+        </div>
+      </div>
+      <div class="form-card">
+        <form onsubmit="handleSubmit(event)">
+          <div class="field-group">
+            <label class="field-label">Full name</label>
+            <input type="text" class="field-input" placeholder="Alex Boudreau" required />
+          </div>
+          <div class="field-group">
+            <label class="field-label">Email address</label>
+            <input type="email" class="field-input" placeholder="alex@heronpointfarm.ca" required />
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="field-group">
+              <label class="field-label">Operation type</label>
+              <select class="field-input">
+                <option value="">Select...</option>
+                <option>Shellfish (oyster)</option>
+                <option>Shellfish (mussel)</option>
+                <option>Shellfish (clam/other)</option>
+                <option>Finfish (salmon)</option>
+                <option>Finfish (trout/other)</option>
+                <option>Multi-species</option>
+                <option>Consultant / advisor</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Province</label>
+              <select class="field-input">
+                <option value="">Select...</option>
+                <option>Nova Scotia</option>
+                <option>New Brunswick</option>
+                <option>Prince Edward Island</option>
+                <option>Newfoundland & Labrador</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Biggest compliance pain right now</label>
+            <textarea class="field-input" placeholder="e.g. Permit renewals, DFO annual report, keeping movement records current..." rows="3"></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Request operator access →</button>
+          <p class="form-note">We respond within 48 hours. No sales calls without permission.</p>
+        </form>
+        <div id="form-success" style="display:none;text-align:center;padding:40px 0">
+          <div style="font-size:28px;margin-bottom:12px">✓</div>
+          <div style="font-size:16px;font-weight:700;color:#0f172a;margin-bottom:8px">Request received</div>
+          <div style="font-size:14px;color:#64748b">We'll be in touch within 48 hours.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ════════════════════════════════════════════════════════════════ -->
+<footer>
+  <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px">
+    <svg width="20" height="13" viewBox="0 0 28 18" fill="none">
+      <path d="M1 9C4 3 8 3 11 9c3 6 7 6 10 0" stroke="#0d9488" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+      <path d="M5 13c3-6 7-6 10 0s7 6 10 0" stroke="#0d9488" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.4"/>
+    </svg>
+    <span style="font-size:13px;font-weight:700;color:#94a3b8">VATE</span>
+  </div>
+  <p>© 2026 VATE Marine Intelligence · Built in Atlantic Canada for aquaculture operators</p>
+  <p style="margin-top:6px"><a href="mailto:hello@vatemarine.com">hello@vatemarine.com</a></p>
+</footer>
+
+<script>
+  function handleSubmit(e) {
+    e.preventDefault()
+    e.currentTarget.style.display = 'none'
+    document.getElementById('form-success').style.display = 'block'
+  }
+
+  function initVateMap() {
+    const map = new google.maps.Map(document.getElementById('gis-satellite-map'), {
+      center: { lat: 45.88195, lng: -63.64464 },
+      zoom: 14,
+      mapTypeId: 'satellite',
+      disableDefaultUI: true,
+      zoomControl: true,
+      zoomControlOptions: { position: google.maps.ControlPosition.RIGHT_CENTER },
+      gestureHandling: 'cooperative'
+    })
+
+    const leaseStyle = { strokeColor:'#2dd4bf', strokeWeight:2, strokeOpacity:0.9, fillColor:'#0d9488', fillOpacity:0.22 }
+
+    // Site 4B — Heron Point
+    new google.maps.Polygon({ map, ...leaseStyle, paths: [
+      {lat:45.884,lng:-63.648},{lat:45.886,lng:-63.643},{lat:45.884,lng:-63.639},
+      {lat:45.880,lng:-63.640},{lat:45.878,lng:-63.645},{lat:45.881,lng:-63.649}
+    ]})
+
+    // Custom popup card overlay
+    class VatePopup extends google.maps.OverlayView {
+      constructor(pos, html, ox, oy, map) {
+        super(); this.pos = pos; this.html = html; this.ox = ox; this.oy = oy; this.setMap(map)
+      }
+      onAdd() {
+        const d = document.createElement('div')
+        d.className = 'vate-popup'; d.innerHTML = this.html
+        this.el = d; this.getPanes().floatPane.appendChild(d)
+      }
+      draw() {
+        const p = this.getProjection().fromLatLngToDivPixel(new google.maps.LatLng(this.pos))
+        this.el.style.left = (p.x + this.ox) + 'px'
+        this.el.style.top  = (p.y + this.oy) + 'px'
+      }
+      onRemove() { this.el.remove() }
+    }
+
+    // Custom pulsing marker
+    class PulseMarker extends google.maps.OverlayView {
+      constructor(pos, map) { super(); this.pos = pos; this.setMap(map) }
+      onAdd() {
+        const d = document.createElement('div')
+        d.className = 'station-marker'
+        d.innerHTML = '<div class="station-ring"></div><div class="station-dot"></div>'
+        this.el = d; this.getPanes().overlayMouseTarget.appendChild(d)
+      }
+      draw() {
+        const p = this.getProjection().fromLatLngToDivPixel(new google.maps.LatLng(this.pos))
+        this.el.style.left = p.x + 'px'; this.el.style.top = p.y + 'px'
+      }
+      onRemove() { this.el.remove() }
+    }
+
+    const stA = { lat:45.882, lng:-63.644 }
+
+    new PulseMarker(stA, map)
+
+    new VatePopup(stA, `
+      <div class="vp-header">
+        <div><div class="vp-station">STATION A</div><div class="vp-site">Site 4B · Heron Point</div></div>
+        <span class="vp-badge ok">● Normal</span>
+      </div>
+      <div class="vp-body">
+        <div class="vp-row"><span class="vp-lbl">Dissolved O₂</span><span class="vp-val g">7.8 mg/L ↑</span></div>
+        <div class="vp-row"><span class="vp-lbl">Temperature</span><span class="vp-val g">14.2°C</span></div>
+        <div class="vp-row"><span class="vp-lbl">Salinity</span><span class="vp-val g">31.4 ppt</span></div>
+        <div class="vp-row"><span class="vp-lbl">pH</span><span class="vp-val g">8.1</span></div>
+      </div>
+      <div class="vp-footer">Updated 2 min ago · Heron Point Farm</div>
+    `, -220, -155, map)
+  }
+</script>
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDj7s5BrDU2DO0nDWueFCOpj0N0Y1onAUU&callback=initVateMap">
+</script>
+</body>
+</html>
