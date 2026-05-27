@@ -12,7 +12,7 @@ export async function POST(req: Request) {
 
     await resend.emails.send({
       from: "VATE <onboarding@resend.dev>", // works without domain
-      to: ["alexandre.parlee@gmail.com"],   // change later to contact@vatehq.dev
+      to: ["contact@vatemarine.com"],
       subject: `New message from ${name}`,
       replyTo: email,
       html: `
