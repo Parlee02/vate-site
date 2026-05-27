@@ -409,8 +409,8 @@
     <div>
       <div class="pill"><span class="pill-dot"></span>Aquaculture · Atlantic Canada</div>
       <h1 style="margin-top:18px">
-        Operations and compliance<br/>
-        <span class="accent">built for the water.</span>
+        Operations &amp; Compliance Intelligence<br/>
+        <span class="accent">Built for Aquaculture.</span>
       </h1>
       <p class="hero-sub">
         The operational system for Atlantic Canada aquaculture — configured around your sites, species, workflows, and permits.
@@ -424,53 +424,162 @@
       </div>
     </div>
 
-    <!-- App mockup -->
+    <!-- App mockup — Operational Map View -->
     <div class="hero-mockup">
       <div class="mockup-bar">
         <div class="dot" style="background:#ff5f57"></div>
         <div class="dot" style="background:#ffbd2e"></div>
         <div class="dot" style="background:#28c840"></div>
-        <div class="mockup-url">app.vatemarine.com / compliance</div>
+        <div class="mockup-url">app.vatemarine.com / map</div>
       </div>
-      <div class="mockup-body">
-        <div class="mockup-sidebar">
-          <div class="sidebar-logo">
-            <svg width="13" height="8" viewBox="0 0 28 18" fill="none"><path d="M1 9C4 3 8 3 11 9c3 6 7 6 10 0" stroke="#0d9488" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg>
-            <span>VATE</span>
+
+      <!-- Body: dark nav + satellite map + lease panel -->
+      <div style="display:flex;min-height:390px;background:#061122;overflow:hidden">
+
+        <!-- ── Nav sidebar (dark) ── -->
+        <div style="width:140px;background:#081929;border-right:1px solid rgba(255,255,255,0.07);padding:11px 0;flex-shrink:0;display:flex;flex-direction:column">
+          <div style="padding:0 10px 10px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:5px;display:flex;align-items:center;gap:6px">
+            <svg width="12" height="8" viewBox="0 0 28 18" fill="none"><path d="M1 9C4 3 8 3 11 9c3 6 7 6 10 0" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg>
+            <span style="color:#e2e8f0;font-weight:700;font-size:11px;letter-spacing:-0.01em">VATE</span>
           </div>
-          <div class="nav-item"><svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="#cbd5e1" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg><span class="ni">Dashboard</span></div>
-          <div class="nav-item active"><svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="#0d9488" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span class="ni">Compliance</span></div>
-          <div class="nav-item"><svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="#cbd5e1" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg><span class="ni">Field Ops</span></div>
-          <div class="nav-item"><svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="#cbd5e1" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span class="ni">Monitoring</span></div>
-          <div class="nav-item"><svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="#cbd5e1" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg><span class="ni">Site Map</span></div>
-          <div class="nav-item"><svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="#cbd5e1" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg><span class="ni">Ask VATE</span></div>
-          <div style="margin-top:auto;padding:10px 8px 2px;border-top:1px solid #f1f5f9">
-            <div style="display:flex;align-items:center;gap:7px;padding:0 4px">
-              <div style="width:20px;height:20px;border-radius:50%;background:#f0fdfa;border:1px solid #99f6e4;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#0d9488;flex-shrink:0">HP</div>
-              <div>
-                <div style="font-size:10px;font-weight:600;color:#0f172a">Heron Point Farm</div>
-                <div style="font-size:9px;color:#94a3b8">Shellfish · N.S.</div>
-              </div>
+          <div style="padding:2px 5px"><div style="display:flex;align-items:center;gap:6px;padding:5px 7px;border-radius:6px"><svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="rgba(148,163,184,0.45)" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg><span style="color:rgba(148,163,184,0.55);font-size:10px">Dashboard</span></div></div>
+          <div style="padding:2px 5px"><div style="display:flex;align-items:center;gap:6px;padding:5px 7px;border-radius:6px"><svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="rgba(148,163,184,0.45)" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span style="color:rgba(148,163,184,0.55);font-size:10px">Compliance</span></div></div>
+          <div style="padding:2px 5px"><div style="display:flex;align-items:center;gap:6px;padding:5px 7px;border-radius:6px"><svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="rgba(148,163,184,0.45)" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg><span style="color:rgba(148,163,184,0.55);font-size:10px">Field Ops</span></div></div>
+          <!-- Site Map — ACTIVE -->
+          <div style="padding:2px 5px"><div style="display:flex;align-items:center;gap:6px;padding:5px 7px;border-radius:6px;background:rgba(13,148,136,0.18)"><svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="#0d9488" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg><span style="color:#2dd4bf;font-size:10px;font-weight:600">Site Map</span></div></div>
+          <div style="padding:2px 5px"><div style="display:flex;align-items:center;gap:6px;padding:5px 7px;border-radius:6px"><svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="rgba(148,163,184,0.45)" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span style="color:rgba(148,163,184,0.55);font-size:10px">Monitoring</span></div></div>
+          <div style="padding:2px 5px"><div style="display:flex;align-items:center;gap:6px;padding:5px 7px;border-radius:6px"><svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="rgba(148,163,184,0.45)" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg><span style="color:rgba(148,163,184,0.55);font-size:10px">Ask VATE</span></div></div>
+          <div style="margin-top:auto;padding:9px 7px 3px;border-top:1px solid rgba(255,255,255,0.07)">
+            <div style="display:flex;align-items:center;gap:5px;padding:0 3px">
+              <div style="width:18px;height:18px;border-radius:50%;background:rgba(13,148,136,0.25);border:1px solid rgba(45,212,191,0.3);display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:#2dd4bf;flex-shrink:0">BV</div>
+              <div><div style="font-size:9px;font-weight:600;color:#e2e8f0">Welch Cove Aqua.</div><div style="font-size:8.5px;color:rgba(148,163,184,0.45)">Finfish · N.B.</div></div>
             </div>
           </div>
         </div>
-        <div class="mockup-main">
-          <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px">
-            <div>
-              <div class="mockup-title">Compliance & Documentation</div>
-              <div class="mockup-sub">Document registry · 14 records</div>
+
+        <!-- ── Satellite map ── -->
+        <div style="flex:1;position:relative;overflow:hidden;min-width:0">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 295 390" style="width:100%;height:100%;display:block;position:absolute;inset:0">
+            <defs>
+              <radialGradient id="wg" cx="50%" cy="42%" r="72%">
+                <stop offset="0%" stop-color="#0d2847"/>
+                <stop offset="100%" stop-color="#050f1e"/>
+              </radialGradient>
+            </defs>
+            <!-- Water -->
+            <rect width="295" height="390" fill="url(#wg)"/>
+            <!-- Depth grid (very faint) -->
+            <g stroke="rgba(45,212,191,0.045)" stroke-width="0.5">
+              <line x1="0" y1="65"  x2="295" y2="65"/> <line x1="0" y1="130" x2="295" y2="130"/>
+              <line x1="0" y1="195" x2="295" y2="195"/> <line x1="0" y1="260" x2="295" y2="260"/>
+              <line x1="0" y1="325" x2="295" y2="325"/>
+              <line x1="60"  y1="0" x2="60"  y2="390"/> <line x1="120" y1="0" x2="120" y2="390"/>
+              <line x1="180" y1="0" x2="180" y2="390"/> <line x1="240" y1="0" x2="240" y2="390"/>
+            </g>
+            <!-- Depth contours -->
+            <path d="M0,340 Q70,328 145,338 Q210,348 295,334" fill="none" stroke="rgba(45,212,191,0.055)" stroke-width="1"/>
+            <path d="M0,375 Q90,362 180,374 Q240,382 295,370" fill="none" stroke="rgba(45,212,191,0.04)" stroke-width="1"/>
+            <!-- Coords -->
+            <text x="5" y="13" font-size="7" fill="rgba(45,212,191,0.22)" font-family="monospace">65°44′N</text>
+            <text x="220" y="13" font-size="7" fill="rgba(45,212,191,0.22)" font-family="monospace">64°51′W</text>
+            <text x="5" y="385" font-size="7" fill="rgba(45,212,191,0.22)" font-family="monospace">65°42′N</text>
+
+            <!-- ── Lease polygon ── -->
+            <polygon points="36,55 222,44 260,72 268,292 218,314 62,308 28,198 36,118"
+              fill="rgba(13,148,136,0.065)" stroke="#0d9488" stroke-width="1.5" stroke-dasharray="5,3"/>
+            <text x="46" y="65" font-size="7.5" fill="rgba(45,212,191,0.48)" font-family="Inter,sans-serif" font-weight="600" letter-spacing="0.05em">AQUACULTURE LEASE · MF-0404-NB</text>
+
+            <!-- ── Pens — 4 col × 3 row ── -->
+            <!-- Row A -->
+            <g transform="translate(60,110)"><circle r="22" fill="rgba(13,148,136,0.2)" stroke="#0d9488" stroke-width="1.3"/><line x1="-22" y1="0" x2="22" y2="0" stroke="rgba(45,212,191,0.17)" stroke-width="0.5"/><line x1="0" y1="-22" x2="0" y2="22" stroke="rgba(45,212,191,0.17)" stroke-width="0.5"/><circle r="14" fill="rgba(6,60,55,0.38)" stroke="rgba(45,212,191,0.32)" stroke-width="0.7"/><circle r="3.5" fill="#2dd4bf"/><text x="0" y="-26" text-anchor="middle" font-size="6.5" fill="rgba(45,212,191,0.5)" font-family="Inter,sans-serif" font-weight="600">A1</text></g>
+            <g transform="translate(118,105)"><circle r="22" fill="rgba(13,148,136,0.2)" stroke="#0d9488" stroke-width="1.3"/><line x1="-22" y1="0" x2="22" y2="0" stroke="rgba(45,212,191,0.17)" stroke-width="0.5"/><line x1="0" y1="-22" x2="0" y2="22" stroke="rgba(45,212,191,0.17)" stroke-width="0.5"/><circle r="14" fill="rgba(6,60,55,0.38)" stroke="rgba(45,212,191,0.32)" stroke-width="0.7"/><circle r="3.5" fill="#2dd4bf"/><text x="0" y="-26" text-anchor="middle" font-size="6.5" fill="rgba(45,212,191,0.5)" font-family="Inter,sans-serif" font-weight="600">A2</text></g>
+            <g transform="translate(178,102)"><circle r="22" fill="rgba(13,148,136,0.2)" stroke="#0d9488" stroke-width="1.3"/><line x1="-22" y1="0" x2="22" y2="0" stroke="rgba(45,212,191,0.17)" stroke-width="0.5"/><line x1="0" y1="-22" x2="0" y2="22" stroke="rgba(45,212,191,0.17)" stroke-width="0.5"/><circle r="14" fill="rgba(6,60,55,0.38)" stroke="rgba(45,212,191,0.32)" stroke-width="0.7"/><circle r="3.5" fill="#2dd4bf"/><text x="0" y="-26" text-anchor="middle" font-size="6.5" fill="rgba(45,212,191,0.5)" font-family="Inter,sans-serif" font-weight="600">A3</text></g>
+            <g transform="translate(237,100)"><circle r="22" fill="rgba(13,148,136,0.2)" stroke="#0d9488" stroke-width="1.3"/><line x1="-22" y1="0" x2="22" y2="0" stroke="rgba(45,212,191,0.17)" stroke-width="0.5"/><line x1="0" y1="-22" x2="0" y2="22" stroke="rgba(45,212,191,0.17)" stroke-width="0.5"/><circle r="14" fill="rgba(6,60,55,0.38)" stroke="rgba(45,212,191,0.32)" stroke-width="0.7"/><circle r="3.5" fill="#2dd4bf"/><text x="0" y="-26" text-anchor="middle" font-size="6.5" fill="rgba(45,212,191,0.5)" font-family="Inter,sans-serif" font-weight="600">A4</text></g>
+            <!-- Row B -->
+            <g transform="translate(60,174)"><circle r="22" fill="rgba(13,148,136,0.2)" stroke="#0d9488" stroke-width="1.3"/><line x1="-22" y1="0" x2="22" y2="0" stroke="rgba(45,212,191,0.17)" stroke-width="0.5"/><line x1="0" y1="-22" x2="0" y2="22" stroke="rgba(45,212,191,0.17)" stroke-width="0.5"/><circle r="14" fill="rgba(6,60,55,0.38)" stroke="rgba(45,212,191,0.32)" stroke-width="0.7"/><circle r="3.5" fill="#2dd4bf"/><text x="0" y="-26" text-anchor="middle" font-size="6.5" fill="rgba(45,212,191,0.5)" font-family="Inter,sans-serif" font-weight="600">B1</text></g>
+            <g transform="translate(118,172)"><circle r="22" fill="rgba(13,148,136,0.2)" stroke="#0d9488" stroke-width="1.3"/><line x1="-22" y1="0" x2="22" y2="0" stroke="rgba(45,212,191,0.17)" stroke-width="0.5"/><line x1="0" y1="-22" x2="0" y2="22" stroke="rgba(45,212,191,0.17)" stroke-width="0.5"/><circle r="14" fill="rgba(6,60,55,0.38)" stroke="rgba(45,212,191,0.32)" stroke-width="0.7"/><circle r="3.5" fill="#2dd4bf"/><text x="0" y="-26" text-anchor="middle" font-size="6.5" fill="rgba(45,212,191,0.5)" font-family="Inter,sans-serif" font-weight="600">B2</text></g>
+            <g transform="translate(178,170)"><circle r="22" fill="rgba(13,148,136,0.2)" stroke="#0d9488" stroke-width="1.3"/><line x1="-22" y1="0" x2="22" y2="0" stroke="rgba(45,212,191,0.17)" stroke-width="0.5"/><line x1="0" y1="-22" x2="0" y2="22" stroke="rgba(45,212,191,0.17)" stroke-width="0.5"/><circle r="14" fill="rgba(6,60,55,0.38)" stroke="rgba(45,212,191,0.32)" stroke-width="0.7"/><circle r="3.5" fill="#2dd4bf"/><text x="0" y="-26" text-anchor="middle" font-size="6.5" fill="rgba(45,212,191,0.5)" font-family="Inter,sans-serif" font-weight="600">B3</text></g>
+            <g transform="translate(237,168)"><circle r="22" fill="rgba(13,148,136,0.2)" stroke="#0d9488" stroke-width="1.3"/><line x1="-22" y1="0" x2="22" y2="0" stroke="rgba(45,212,191,0.17)" stroke-width="0.5"/><line x1="0" y1="-22" x2="0" y2="22" stroke="rgba(45,212,191,0.17)" stroke-width="0.5"/><circle r="14" fill="rgba(6,60,55,0.38)" stroke="rgba(45,212,191,0.32)" stroke-width="0.7"/><circle r="3.5" fill="#2dd4bf"/><text x="0" y="-26" text-anchor="middle" font-size="6.5" fill="rgba(45,212,191,0.5)" font-family="Inter,sans-serif" font-weight="600">B4</text></g>
+            <!-- Row C -->
+            <g transform="translate(62,238)"><circle r="22" fill="rgba(13,148,136,0.2)" stroke="#0d9488" stroke-width="1.3"/><line x1="-22" y1="0" x2="22" y2="0" stroke="rgba(45,212,191,0.17)" stroke-width="0.5"/><line x1="0" y1="-22" x2="0" y2="22" stroke="rgba(45,212,191,0.17)" stroke-width="0.5"/><circle r="14" fill="rgba(6,60,55,0.38)" stroke="rgba(45,212,191,0.32)" stroke-width="0.7"/><circle r="3.5" fill="#2dd4bf"/><text x="0" y="-26" text-anchor="middle" font-size="6.5" fill="rgba(45,212,191,0.5)" font-family="Inter,sans-serif" font-weight="600">C1</text></g>
+            <g transform="translate(118,236)"><circle r="22" fill="rgba(13,148,136,0.2)" stroke="#0d9488" stroke-width="1.3"/><line x1="-22" y1="0" x2="22" y2="0" stroke="rgba(45,212,191,0.17)" stroke-width="0.5"/><line x1="0" y1="-22" x2="0" y2="22" stroke="rgba(45,212,191,0.17)" stroke-width="0.5"/><circle r="14" fill="rgba(6,60,55,0.38)" stroke="rgba(45,212,191,0.32)" stroke-width="0.7"/><circle r="3.5" fill="#2dd4bf"/><text x="0" y="-26" text-anchor="middle" font-size="6.5" fill="rgba(45,212,191,0.5)" font-family="Inter,sans-serif" font-weight="600">C2</text></g>
+            <g transform="translate(178,235)"><circle r="22" fill="rgba(13,148,136,0.2)" stroke="#0d9488" stroke-width="1.3"/><line x1="-22" y1="0" x2="22" y2="0" stroke="rgba(45,212,191,0.17)" stroke-width="0.5"/><line x1="0" y1="-22" x2="0" y2="22" stroke="rgba(45,212,191,0.17)" stroke-width="0.5"/><circle r="14" fill="rgba(6,60,55,0.38)" stroke="rgba(45,212,191,0.32)" stroke-width="0.7"/><circle r="3.5" fill="#2dd4bf"/><text x="0" y="-26" text-anchor="middle" font-size="6.5" fill="rgba(45,212,191,0.5)" font-family="Inter,sans-serif" font-weight="600">C3</text></g>
+            <g transform="translate(237,233)"><circle r="22" fill="rgba(13,148,136,0.2)" stroke="#0d9488" stroke-width="1.3"/><line x1="-22" y1="0" x2="22" y2="0" stroke="rgba(45,212,191,0.17)" stroke-width="0.5"/><line x1="0" y1="-22" x2="0" y2="22" stroke="rgba(45,212,191,0.17)" stroke-width="0.5"/><circle r="14" fill="rgba(6,60,55,0.38)" stroke="rgba(45,212,191,0.32)" stroke-width="0.7"/><circle r="3.5" fill="#2dd4bf"/><text x="0" y="-26" text-anchor="middle" font-size="6.5" fill="rgba(45,212,191,0.5)" font-family="Inter,sans-serif" font-weight="600">C4</text></g>
+
+            <!-- ── Environmental station (pulsing amber) ── -->
+            <g transform="translate(262,148)">
+              <circle r="6" fill="rgba(245,158,11,0.15)"><animate attributeName="r" values="6;18;6" dur="2.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.5;0;0.5" dur="2.8s" repeatCount="indefinite"/></circle>
+              <circle r="5" fill="#f59e0b" stroke="#fff" stroke-width="1.2"/>
+              <text x="8" y="-8" font-size="7" fill="rgba(245,158,11,0.65)" font-family="Inter,sans-serif" font-weight="600">NW-01</text>
+            </g>
+
+            <!-- ── Supply vessel ── -->
+            <g transform="translate(148,28) rotate(8)">
+              <path d="M0,-9 L5,5 L0,3 L-5,5 Z" fill="#94a3b8" stroke="rgba(255,255,255,0.35)" stroke-width="0.8"/>
+              <path d="M-8,7 Q0,11 8,7" fill="none" stroke="rgba(148,163,184,0.22)" stroke-width="0.7"/>
+            </g>
+            <text x="158" y="26" font-size="7" fill="rgba(148,163,184,0.45)" font-family="Inter,sans-serif">Feeder 01</text>
+
+            <!-- Scale bar -->
+            <g transform="translate(12,376)">
+              <line x1="0" y1="0" x2="48" y2="0" stroke="rgba(45,212,191,0.35)" stroke-width="1"/>
+              <line x1="0" y1="-3" x2="0" y2="3" stroke="rgba(45,212,191,0.35)" stroke-width="1"/>
+              <line x1="48" y1="-3" x2="48" y2="3" stroke="rgba(45,212,191,0.35)" stroke-width="1"/>
+              <text x="24" y="-5" text-anchor="middle" font-size="7" fill="rgba(45,212,191,0.35)" font-family="Inter,sans-serif">100 m</text>
+            </g>
+          </svg>
+
+          <!-- Env station popup (bottom-left of map) -->
+          <div style="position:absolute;bottom:20px;left:12px;background:#0c1e35;border:1px solid rgba(45,212,191,0.18);border-radius:10px;width:176px;overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,0.45)">
+            <div style="padding:7px 10px 5px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:center">
+              <div><div style="font-size:8px;font-weight:700;color:#2dd4bf;letter-spacing:0.08em;text-transform:uppercase">ENV · NW-01</div><div style="font-size:8.5px;color:rgba(255,255,255,0.3);margin-top:1px">North Pen Cluster</div></div>
+              <span style="font-size:8.5px;font-weight:700;padding:2px 6px;border-radius:4px;background:rgba(74,222,128,0.13);color:#4ade80;white-space:nowrap">Live</span>
             </div>
-            <div class="badge-warn"><div style="width:5px;height:5px;border-radius:50%;background:#dc2626;flex-shrink:0"></div>2 expiring</div>
-          </div>
-          <div class="mockup-table">
-            <div class="table-head"><span>Document</span><span>Category</span><span>Status</span><span>Expires</span></div>
-            <div class="table-row"><span class="td-m">Aquaculture Lease — Site 4B</span><span class="td-c">Permit</span><span><span class="tag tag-ok">Current</span></span><span class="td-e">Mar 2027</span></div>
-            <div class="table-row warn"><span class="td-m">CFIA Registration Certificate</span><span class="td-c">CFIA</span><span><span class="tag tag-warn">Expiring</span></span><span class="td-e u">38 days</span></div>
-            <div class="table-row"><span class="td-m">Preventive Control Plan v2.1</span><span class="td-c">PCP</span><span><span class="tag tag-ok">Current</span></span><span class="td-e">—</span></div>
-            <div class="table-row warn"><span class="td-m">NS Aquaculture Licence</span><span class="td-c">Licence</span><span><span class="tag tag-warn">Expiring</span></span><span class="td-e u">51 days</span></div>
-            <div class="table-row"><span class="td-m">DFO Movement Permit #2024-118</span><span class="td-c">Movement</span><span><span class="tag tag-ok">Submitted</span></span><span class="td-e">Aug 2026</span></div>
+            <div style="padding:6px 10px 4px;display:flex;flex-direction:column;gap:3.5px">
+              <div style="display:flex;justify-content:space-between"><span style="font-size:9.5px;color:rgba(255,255,255,0.32)">Temperature</span><span style="font-size:10.5px;font-weight:600;color:#4ade80">8.4 °C</span></div>
+              <div style="display:flex;justify-content:space-between"><span style="font-size:9.5px;color:rgba(255,255,255,0.32)">Dissolved O₂</span><span style="font-size:10.5px;font-weight:600;color:#4ade80">9.2 mg/L</span></div>
+              <div style="display:flex;justify-content:space-between"><span style="font-size:9.5px;color:rgba(255,255,255,0.32)">Salinity</span><span style="font-size:10.5px;font-weight:600;color:#e2e8f0">31.4 ppt</span></div>
+            </div>
+            <div style="padding:3px 10px 6px;border-top:1px solid rgba(255,255,255,0.06);font-size:8.5px;color:rgba(255,255,255,0.2)">Updated 14 min ago</div>
           </div>
         </div>
+
+        <!-- ── Lease info panel ── -->
+        <div style="width:154px;background:#0a1e35;border-left:1px solid rgba(255,255,255,0.07);padding:11px 10px;flex-shrink:0;display:flex;flex-direction:column;gap:0;overflow:hidden">
+          <!-- Header -->
+          <div style="margin-bottom:9px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.07)">
+            <div style="font-size:8px;font-weight:700;color:rgba(45,212,191,0.55);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px">Lease Registry</div>
+            <div style="display:inline-flex;align-items:center;gap:4px;background:rgba(74,222,128,0.11);border:1px solid rgba(74,222,128,0.2);border-radius:4px;padding:2px 7px">
+              <div style="width:5px;height:5px;border-radius:50%;background:#4ade80"></div>
+              <span style="font-size:9px;font-weight:700;color:#4ade80">Active</span>
+            </div>
+          </div>
+          <!-- Metadata -->
+          <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:9px;padding-bottom:9px;border-bottom:1px solid rgba(255,255,255,0.07)">
+            <div><div style="font-size:7.5px;color:rgba(148,163,184,0.42);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:1px">Operator</div><div style="font-size:9.5px;font-weight:600;color:#e2e8f0;line-height:1.3">Welch Cove Aquaculture Ltd.</div></div>
+            <div><div style="font-size:7.5px;color:rgba(148,163,184,0.42);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:1px">Licence</div><div style="font-size:9.5px;font-weight:700;color:#2dd4bf">MF-0404-NB</div></div>
+            <div><div style="font-size:7.5px;color:rgba(148,163,184,0.42);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:1px">Species</div><div style="font-size:9.5px;font-weight:500;color:#e2e8f0">Atlantic Salmon</div></div>
+            <div><div style="font-size:7.5px;color:rgba(148,163,184,0.42);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:1px">Province · Type</div><div style="font-size:9px;font-weight:500;color:#e2e8f0">New Brunswick · Finfish</div></div>
+          </div>
+          <!-- Site stats -->
+          <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:9px;padding-bottom:9px;border-bottom:1px solid rgba(255,255,255,0.07)">
+            <div style="display:flex;justify-content:space-between"><span style="font-size:9px;color:rgba(148,163,184,0.45)">Pens</span><span style="font-size:9.5px;font-weight:600;color:#e2e8f0">12 active</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="font-size:9px;color:rgba(148,163,184,0.45)">Lease area</span><span style="font-size:9.5px;font-weight:600;color:#e2e8f0">28.0 ha</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="font-size:9px;color:rgba(148,163,184,0.45)">Biomass</span><span style="font-size:9.5px;font-weight:600;color:#e2e8f0">847 t</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="font-size:9px;color:rgba(148,163,184,0.45)">Depth</span><span style="font-size:9.5px;font-weight:600;color:#e2e8f0">12–18 m</span></div>
+          </div>
+          <!-- Activity -->
+          <div>
+            <div style="font-size:7.5px;font-weight:700;color:rgba(148,163,184,0.38);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:5px">Recent Activity</div>
+            <div style="display:flex;flex-direction:column;gap:4.5px">
+              <div style="display:flex;align-items:center;gap:5px"><div style="width:4px;height:4px;border-radius:50%;background:#2dd4bf;flex-shrink:0"></div><span style="font-size:8.5px;color:rgba(148,163,184,0.5);line-height:1.3">Feeding log · 2h ago</span></div>
+              <div style="display:flex;align-items:center;gap:5px"><div style="width:4px;height:4px;border-radius:50%;background:#4ade80;flex-shrink:0"></div><span style="font-size:8.5px;color:rgba(148,163,184,0.5);line-height:1.3">Water temp OK · 4h</span></div>
+              <div style="display:flex;align-items:center;gap:5px"><div style="width:4px;height:4px;border-radius:50%;background:#94a3b8;flex-shrink:0"></div><span style="font-size:8.5px;color:rgba(148,163,184,0.5);line-height:1.3">Vessel depart · 6h</span></div>
+              <div style="display:flex;align-items:center;gap:5px"><div style="width:4px;height:4px;border-radius:50%;background:#f59e0b;flex-shrink:0"></div><span style="font-size:8.5px;color:rgba(148,163,184,0.5);line-height:1.3">Inspection log · 1d</span></div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -706,14 +815,207 @@
         <div class="dot" style="background:#ff5f57"></div>
         <div class="dot" style="background:#ffbd2e"></div>
         <div class="dot" style="background:#28c840"></div>
-        <div class="gis-bar-title">VATE Site Map — Heron Point</div>
+        <div class="gis-bar-title">VATE Site Map — Welch Cove</div>
         <div class="gis-tags">
           <div class="gtag on">Leases</div>
           <div class="gtag on">Monitoring</div>
           <div class="gtag off">CFIA</div>
         </div>
       </div>
-      <div id="gis-satellite-map" style="width:100%;flex:1;min-height:0"></div>
+      <div id="gis-satellite-map" style="width:100%;flex:1;min-height:0;position:relative;overflow:hidden">
+        <!-- SVG satellite map mockup -->
+        <svg viewBox="0 0 600 520" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="display:block">
+          <defs>
+            <linearGradient id="gisWater" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#071828"/>
+              <stop offset="55%" stop-color="#0b2640"/>
+              <stop offset="100%" stop-color="#0e2e4a"/>
+            </linearGradient>
+            <radialGradient id="gisSunspot" cx="65%" cy="15%" r="55%">
+              <stop offset="0%" stop-color="rgba(56,189,248,0.08)"/>
+              <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+            </radialGradient>
+          </defs>
+
+          <!-- Water -->
+          <rect width="600" height="520" fill="url(#gisWater)"/>
+          <rect width="600" height="520" fill="url(#gisSunspot)"/>
+
+          <!-- Subtle depth variation -->
+          <ellipse cx="400" cy="180" rx="220" ry="100" fill="rgba(0,0,0,0.14)"/>
+          <ellipse cx="130" cy="300" rx="110" ry="55" fill="rgba(0,0,0,0.08)"/>
+
+          <!-- Very faint wave ripple lines -->
+          <g opacity="0.045" stroke="#7dd3fc" stroke-width="0.7" fill="none">
+            <path d="M0,100 Q150,88 300,102 Q450,116 600,104"/>
+            <path d="M0,150 Q150,138 300,152 Q450,166 600,154"/>
+            <path d="M0,200 Q150,188 300,202 Q450,216 600,204"/>
+            <path d="M0,250 Q150,238 300,252 Q450,266 600,254"/>
+            <path d="M0,300 Q150,288 300,302 Q450,316 600,304"/>
+            <path d="M0,350 Q150,338 300,352 Q450,366 600,354"/>
+            <path d="M0,395 Q150,383 300,397 Q450,411 600,399"/>
+          </g>
+
+          <!-- Tidal foreshore (mud/sand transition) -->
+          <path d="M0,418 Q80,402 170,412 Q270,424 360,410 Q450,398 530,414 Q570,422 600,412 L600,520 L0,520 Z" fill="#3a4a28" opacity="0.65"/>
+
+          <!-- Land mass -->
+          <path d="M0,448 Q90,430 180,442 Q270,454 360,438 Q460,422 545,440 Q575,448 600,440 L600,520 L0,520 Z" fill="#283a1a" opacity="0.92"/>
+
+          <!-- Darker land fill -->
+          <path d="M0,474 Q120,460 240,472 Q360,484 480,466 Q540,459 600,465 L600,520 L0,520 Z" fill="#1e2e14"/>
+
+          <!-- Shore edge highlight -->
+          <path d="M0,448 Q90,430 180,442 Q270,454 360,438 Q460,422 545,440 Q575,448 600,440" stroke="rgba(160,200,90,0.22)" stroke-width="1.2" fill="none"/>
+
+          <!-- Lease polygon — Welch Cove MF-0404-NB -->
+          <polygon points="195,118 325,102 408,142 416,232 374,294 278,316 185,294 158,208"
+            stroke="#2dd4bf" stroke-width="1.6" stroke-dasharray="7,4.5" fill="rgba(13,148,136,0.11)" opacity="0.92"/>
+
+          <!-- Lease label along top edge -->
+          <text x="222" y="128" font-size="7.5" fill="rgba(45,212,191,0.52)" font-family="Inter,sans-serif" font-weight="600" letter-spacing="0.055em">AQUACULTURE LEASE · MF-0404-NB</text>
+
+          <!-- ── Pens: 4 cols × 3 rows ── -->
+          <!-- spacing: 52px horizontal, 52px vertical; cols at 196,248,300,352; rows at 162,214,266 -->
+          <!-- Row A -->
+          <circle cx="196" cy="162" r="21" fill="none" stroke="rgba(45,212,191,0.52)" stroke-width="1.3"/>
+          <circle cx="196" cy="162" r="15" fill="rgba(13,148,136,0.16)" stroke="rgba(45,212,191,0.28)" stroke-width="0.7"/>
+          <line x1="175" y1="162" x2="217" y2="162" stroke="rgba(45,212,191,0.18)" stroke-width="0.6"/>
+          <line x1="196" y1="141" x2="196" y2="183" stroke="rgba(45,212,191,0.18)" stroke-width="0.6"/>
+          <circle cx="196" cy="162" r="2.2" fill="rgba(45,212,191,0.55)"/>
+
+          <circle cx="248" cy="162" r="21" fill="none" stroke="rgba(45,212,191,0.52)" stroke-width="1.3"/>
+          <circle cx="248" cy="162" r="15" fill="rgba(13,148,136,0.16)" stroke="rgba(45,212,191,0.28)" stroke-width="0.7"/>
+          <line x1="227" y1="162" x2="269" y2="162" stroke="rgba(45,212,191,0.18)" stroke-width="0.6"/>
+          <line x1="248" y1="141" x2="248" y2="183" stroke="rgba(45,212,191,0.18)" stroke-width="0.6"/>
+          <circle cx="248" cy="162" r="2.2" fill="rgba(45,212,191,0.55)"/>
+
+          <circle cx="300" cy="162" r="21" fill="none" stroke="rgba(45,212,191,0.52)" stroke-width="1.3"/>
+          <circle cx="300" cy="162" r="15" fill="rgba(13,148,136,0.16)" stroke="rgba(45,212,191,0.28)" stroke-width="0.7"/>
+          <line x1="279" y1="162" x2="321" y2="162" stroke="rgba(45,212,191,0.18)" stroke-width="0.6"/>
+          <line x1="300" y1="141" x2="300" y2="183" stroke="rgba(45,212,191,0.18)" stroke-width="0.6"/>
+          <circle cx="300" cy="162" r="2.2" fill="rgba(45,212,191,0.55)"/>
+
+          <circle cx="352" cy="162" r="21" fill="none" stroke="rgba(45,212,191,0.52)" stroke-width="1.3"/>
+          <circle cx="352" cy="162" r="15" fill="rgba(13,148,136,0.16)" stroke="rgba(45,212,191,0.28)" stroke-width="0.7"/>
+          <line x1="331" y1="162" x2="373" y2="162" stroke="rgba(45,212,191,0.18)" stroke-width="0.6"/>
+          <line x1="352" y1="141" x2="352" y2="183" stroke="rgba(45,212,191,0.18)" stroke-width="0.6"/>
+          <circle cx="352" cy="162" r="2.2" fill="rgba(45,212,191,0.55)"/>
+
+          <!-- Row B -->
+          <circle cx="196" cy="214" r="21" fill="none" stroke="rgba(45,212,191,0.52)" stroke-width="1.3"/>
+          <circle cx="196" cy="214" r="15" fill="rgba(13,148,136,0.16)" stroke="rgba(45,212,191,0.28)" stroke-width="0.7"/>
+          <line x1="175" y1="214" x2="217" y2="214" stroke="rgba(45,212,191,0.18)" stroke-width="0.6"/>
+          <line x1="196" y1="193" x2="196" y2="235" stroke="rgba(45,212,191,0.18)" stroke-width="0.6"/>
+          <circle cx="196" cy="214" r="2.2" fill="rgba(45,212,191,0.55)"/>
+
+          <circle cx="248" cy="214" r="21" fill="none" stroke="rgba(45,212,191,0.52)" stroke-width="1.3"/>
+          <circle cx="248" cy="214" r="15" fill="rgba(13,148,136,0.16)" stroke="rgba(45,212,191,0.28)" stroke-width="0.7"/>
+          <line x1="227" y1="214" x2="269" y2="214" stroke="rgba(45,212,191,0.18)" stroke-width="0.6"/>
+          <line x1="248" y1="193" x2="248" y2="235" stroke="rgba(45,212,191,0.18)" stroke-width="0.6"/>
+          <circle cx="248" cy="214" r="2.2" fill="rgba(45,212,191,0.55)"/>
+
+          <circle cx="300" cy="214" r="21" fill="none" stroke="rgba(45,212,191,0.52)" stroke-width="1.3"/>
+          <circle cx="300" cy="214" r="15" fill="rgba(13,148,136,0.16)" stroke="rgba(45,212,191,0.28)" stroke-width="0.7"/>
+          <line x1="279" y1="214" x2="321" y2="214" stroke="rgba(45,212,191,0.18)" stroke-width="0.6"/>
+          <line x1="300" y1="193" x2="300" y2="235" stroke="rgba(45,212,191,0.18)" stroke-width="0.6"/>
+          <circle cx="300" cy="214" r="2.2" fill="rgba(45,212,191,0.55)"/>
+
+          <circle cx="352" cy="214" r="21" fill="none" stroke="rgba(45,212,191,0.52)" stroke-width="1.3"/>
+          <circle cx="352" cy="214" r="15" fill="rgba(13,148,136,0.16)" stroke="rgba(45,212,191,0.28)" stroke-width="0.7"/>
+          <line x1="331" y1="214" x2="373" y2="214" stroke="rgba(45,212,191,0.18)" stroke-width="0.6"/>
+          <line x1="352" y1="193" x2="352" y2="235" stroke="rgba(45,212,191,0.18)" stroke-width="0.6"/>
+          <circle cx="352" cy="214" r="2.2" fill="rgba(45,212,191,0.55)"/>
+
+          <!-- Row C -->
+          <circle cx="196" cy="266" r="21" fill="none" stroke="rgba(45,212,191,0.52)" stroke-width="1.3"/>
+          <circle cx="196" cy="266" r="15" fill="rgba(13,148,136,0.16)" stroke="rgba(45,212,191,0.28)" stroke-width="0.7"/>
+          <line x1="175" y1="266" x2="217" y2="266" stroke="rgba(45,212,191,0.18)" stroke-width="0.6"/>
+          <line x1="196" y1="245" x2="196" y2="287" stroke="rgba(45,212,191,0.18)" stroke-width="0.6"/>
+          <circle cx="196" cy="266" r="2.2" fill="rgba(45,212,191,0.55)"/>
+
+          <circle cx="248" cy="266" r="21" fill="none" stroke="rgba(45,212,191,0.52)" stroke-width="1.3"/>
+          <circle cx="248" cy="266" r="15" fill="rgba(13,148,136,0.16)" stroke="rgba(45,212,191,0.28)" stroke-width="0.7"/>
+          <line x1="227" y1="266" x2="269" y2="266" stroke="rgba(45,212,191,0.18)" stroke-width="0.6"/>
+          <line x1="248" y1="245" x2="248" y2="287" stroke="rgba(45,212,191,0.18)" stroke-width="0.6"/>
+          <circle cx="248" cy="266" r="2.2" fill="rgba(45,212,191,0.55)"/>
+
+          <circle cx="300" cy="266" r="21" fill="none" stroke="rgba(45,212,191,0.52)" stroke-width="1.3"/>
+          <circle cx="300" cy="266" r="15" fill="rgba(13,148,136,0.16)" stroke="rgba(45,212,191,0.28)" stroke-width="0.7"/>
+          <line x1="279" y1="266" x2="321" y2="266" stroke="rgba(45,212,191,0.18)" stroke-width="0.6"/>
+          <line x1="300" y1="245" x2="300" y2="287" stroke="rgba(45,212,191,0.18)" stroke-width="0.6"/>
+          <circle cx="300" cy="266" r="2.2" fill="rgba(45,212,191,0.55)"/>
+
+          <circle cx="352" cy="266" r="21" fill="none" stroke="rgba(45,212,191,0.52)" stroke-width="1.3"/>
+          <circle cx="352" cy="266" r="15" fill="rgba(13,148,136,0.16)" stroke="rgba(45,212,191,0.28)" stroke-width="0.7"/>
+          <line x1="331" y1="266" x2="373" y2="266" stroke="rgba(45,212,191,0.18)" stroke-width="0.6"/>
+          <line x1="352" y1="245" x2="352" y2="287" stroke="rgba(45,212,191,0.18)" stroke-width="0.6"/>
+          <circle cx="352" cy="266" r="2.2" fill="rgba(45,212,191,0.55)"/>
+
+          <!-- Pen row labels -->
+          <text x="161" y="165" text-anchor="middle" font-size="6" fill="rgba(148,163,184,0.38)" font-family="Inter,sans-serif">A</text>
+          <text x="161" y="217" text-anchor="middle" font-size="6" fill="rgba(148,163,184,0.38)" font-family="Inter,sans-serif">B</text>
+          <text x="161" y="269" text-anchor="middle" font-size="6" fill="rgba(148,163,184,0.38)" font-family="Inter,sans-serif">C</text>
+
+          <!-- Monitoring station NW-01 (pulsing) -->
+          <circle cx="435" cy="320" r="15" fill="rgba(251,191,36,0.1)" class="station-ring-gis" style="transform-origin:435px 320px;animation:stationPulse 2s ease-out infinite"/>
+          <circle cx="435" cy="320" r="6" fill="rgba(251,191,36,0.25)"/>
+          <circle cx="435" cy="320" r="3.5" fill="#fbbf24"/>
+          <text x="447" y="317" font-size="7" fill="rgba(251,191,36,0.72)" font-family="Inter,sans-serif" font-weight="600">ENV-02</text>
+          <text x="447" y="326" font-size="6.5" fill="rgba(148,163,184,0.4)" font-family="Inter,sans-serif">SE Station</text>
+
+          <!-- Zoom controls -->
+          <rect x="558" y="14" width="26" height="26" rx="4" fill="rgba(255,255,255,0.9)"/>
+          <text x="571" y="31" text-anchor="middle" font-size="15" fill="#374151" font-family="Inter,sans-serif">+</text>
+          <rect x="558" y="44" width="26" height="26" rx="4" fill="rgba(255,255,255,0.9)"/>
+          <text x="571" y="61" text-anchor="middle" font-size="15" fill="#374151" font-family="Inter,sans-serif">−</text>
+
+          <!-- Scale bar -->
+          <g transform="translate(28,496)">
+            <rect x="0" y="0" width="80" height="2.5" fill="rgba(255,255,255,0.5)"/>
+            <rect x="0" y="0" width="40" height="2.5" fill="rgba(255,255,255,0.85)"/>
+            <text x="0" y="-3" font-size="6.5" fill="rgba(255,255,255,0.5)" font-family="Inter,sans-serif">0</text>
+            <text x="74" y="-3" font-size="6.5" fill="rgba(255,255,255,0.5)" font-family="Inter,sans-serif">500m</text>
+          </g>
+
+          <!-- Coord labels -->
+          <text x="8" y="14" font-size="6.5" fill="rgba(100,116,139,0.45)" font-family="monospace">45.882°N  63.644°W</text>
+        </svg>
+
+        <!-- Station A popup card (HTML overlay) -->
+        <div style="position:absolute;top:22px;left:14px;background:rgba(8,20,40,0.93);border:1px solid rgba(45,212,191,0.22);border-radius:9px;width:190px;backdrop-filter:blur(10px);font-family:'Inter',sans-serif">
+          <div style="padding:8px 11px 6px;border-bottom:1px solid rgba(45,212,191,0.1)">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <div>
+                <div style="font-size:8px;font-weight:700;letter-spacing:0.08em;color:#e2e8f0;text-transform:uppercase">Station A · NW-01</div>
+                <div style="font-size:7px;color:rgba(148,163,184,0.55);margin-top:1px">Welch Cove Farm</div>
+              </div>
+              <span style="font-size:7px;font-weight:600;padding:2px 6px;background:rgba(34,197,94,0.14);border:1px solid rgba(34,197,94,0.28);border-radius:4px;color:#4ade80;white-space:nowrap">● Normal</span>
+            </div>
+          </div>
+          <div style="padding:7px 11px">
+            <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+              <span style="font-size:7.5px;color:rgba(148,163,184,0.5)">Dissolved O₂</span>
+              <span style="font-size:8px;font-weight:600;color:#2dd4bf">9.2 mg/L ↑</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+              <span style="font-size:7.5px;color:rgba(148,163,184,0.5)">Temperature</span>
+              <span style="font-size:8px;font-weight:600;color:#2dd4bf">8.4°C</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+              <span style="font-size:7.5px;color:rgba(148,163,184,0.5)">Salinity</span>
+              <span style="font-size:8px;font-weight:600;color:#2dd4bf">31.4 ppt</span>
+            </div>
+            <div style="display:flex;justify-content:space-between">
+              <span style="font-size:7.5px;color:rgba(148,163,184,0.5)">pH</span>
+              <span style="font-size:8px;font-weight:600;color:#2dd4bf">7.9</span>
+            </div>
+          </div>
+          <div style="padding:4px 11px 6px;border-top:1px solid rgba(45,212,191,0.08)">
+            <span style="font-size:6.5px;color:rgba(100,116,139,0.45)">Updated 2 min ago</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -974,81 +1276,6 @@
     e.currentTarget.style.display = 'none'
     document.getElementById('form-success').style.display = 'block'
   }
-
-  function initVateMap() {
-    const map = new google.maps.Map(document.getElementById('gis-satellite-map'), {
-      center: { lat: 45.88195, lng: -63.64464 },
-      zoom: 14,
-      mapTypeId: 'satellite',
-      disableDefaultUI: true,
-      zoomControl: true,
-      zoomControlOptions: { position: google.maps.ControlPosition.RIGHT_CENTER },
-      gestureHandling: 'cooperative'
-    })
-
-    const leaseStyle = { strokeColor:'#2dd4bf', strokeWeight:2, strokeOpacity:0.9, fillColor:'#0d9488', fillOpacity:0.22 }
-
-    // Site 4B — Heron Point
-    new google.maps.Polygon({ map, ...leaseStyle, paths: [
-      {lat:45.884,lng:-63.648},{lat:45.886,lng:-63.643},{lat:45.884,lng:-63.639},
-      {lat:45.880,lng:-63.640},{lat:45.878,lng:-63.645},{lat:45.881,lng:-63.649}
-    ]})
-
-    // Custom popup card overlay
-    class VatePopup extends google.maps.OverlayView {
-      constructor(pos, html, ox, oy, map) {
-        super(); this.pos = pos; this.html = html; this.ox = ox; this.oy = oy; this.setMap(map)
-      }
-      onAdd() {
-        const d = document.createElement('div')
-        d.className = 'vate-popup'; d.innerHTML = this.html
-        this.el = d; this.getPanes().floatPane.appendChild(d)
-      }
-      draw() {
-        const p = this.getProjection().fromLatLngToDivPixel(new google.maps.LatLng(this.pos))
-        this.el.style.left = (p.x + this.ox) + 'px'
-        this.el.style.top  = (p.y + this.oy) + 'px'
-      }
-      onRemove() { this.el.remove() }
-    }
-
-    // Custom pulsing marker
-    class PulseMarker extends google.maps.OverlayView {
-      constructor(pos, map) { super(); this.pos = pos; this.setMap(map) }
-      onAdd() {
-        const d = document.createElement('div')
-        d.className = 'station-marker'
-        d.innerHTML = '<div class="station-ring"></div><div class="station-dot"></div>'
-        this.el = d; this.getPanes().overlayMouseTarget.appendChild(d)
-      }
-      draw() {
-        const p = this.getProjection().fromLatLngToDivPixel(new google.maps.LatLng(this.pos))
-        this.el.style.left = p.x + 'px'; this.el.style.top = p.y + 'px'
-      }
-      onRemove() { this.el.remove() }
-    }
-
-    const stA = { lat:45.882, lng:-63.644 }
-
-    new PulseMarker(stA, map)
-
-    new VatePopup(stA, `
-      <div class="vp-header">
-        <div><div class="vp-station">STATION A</div><div class="vp-site">Site 4B · Heron Point</div></div>
-        <span class="vp-badge ok">● Normal</span>
-      </div>
-      <div class="vp-body">
-        <div class="vp-row"><span class="vp-lbl">Dissolved O₂</span><span class="vp-val g">7.8 mg/L ↑</span></div>
-        <div class="vp-row"><span class="vp-lbl">Temperature</span><span class="vp-val g">14.2°C</span></div>
-        <div class="vp-row"><span class="vp-lbl">Salinity</span><span class="vp-val g">31.4 ppt</span></div>
-        <div class="vp-row"><span class="vp-lbl">pH</span><span class="vp-val g">8.1</span></div>
-      </div>
-      <div class="vp-footer">Updated 2 min ago · Heron Point Farm</div>
-    `, -220, -155, map)
-  }
-</script>
-<script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDj7s5BrDU2DO0nDWueFCOpj0N0Y1onAUU&callback=initVateMap">
 </script>
 </body>
 </html>
