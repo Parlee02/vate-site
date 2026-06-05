@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mission — VATE</title>
+  <meta name="description" content="Why VATE exists: bringing operational intelligence to Atlantic Canada aquaculture." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #0f172a; -webkit-font-smoothing: antialiased; }
+
+    /* NAV */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.94); backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid rgba(226,232,240,0.8);
+      box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+    }
+    .nav-inner {
+      max-width: 1280px; margin: 0 auto; padding: 0 40px;
+      height: 58px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .wordmark { font-size: 18px; font-weight: 700; color: #082B66; letter-spacing: 0.1em; font-family: 'Inter', sans-serif; line-height: 1; }
+
+    .nav-cta {
+      background: #082B66; color: #fff; font-weight: 600; font-size: 13px;
+      padding: 8px 20px; border-radius: 7px; text-decoration: none;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.15), 0 4px 14px rgba(8,43,102,0.28);
+      transition: background 0.15s, box-shadow 0.15s, transform 0.15s;
+      display: inline-block; letter-spacing: 0.01em;
+    }
+    .nav-cta:hover {
+      background: #0a3580;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.12), 0 6px 20px rgba(8,43,102,0.38);
+      transform: translateY(-1px);
+    }
+
+    /* PAGE */
+    .page-wrap { padding-top: 58px; }
+
+    .page-hero {
+      background: #fff; border-bottom: 1px solid #e2e8f0;
+      padding: 64px 40px 60px;
+    }
+    .page-hero-inner { max-width: 1280px; }
+    .mission-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 10.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+      color: #2DD4BF; margin-bottom: 20px;
+    }
+    .mission-label::before {
+      content: ''; width: 18px; height: 2px; border-radius: 2px; background: #2DD4BF; flex-shrink: 0;
+    }
+    .page-hero h1 {
+      font-size: clamp(26px, 2.8vw, 36px); font-weight: 800; letter-spacing: -0.025em;
+      line-height: 1.15; color: #082B66; margin-bottom: 28px; max-width: 520px;
+    }
+    .mission-lead {
+      font-size: 16px; font-weight: 500; color: #1e293b; line-height: 1.65;
+      max-width: 58ch; margin-bottom: 20px;
+    }
+    .mission-body p {
+      font-size: 15px; color: #475569; line-height: 1.75;
+      max-width: 58ch; margin-bottom: 14px;
+    }
+    .mission-body p:last-child { margin-bottom: 0; }
+
+    /* PILLARS */
+    .pillars-section {
+      max-width: 760px; margin: 0 auto; padding: 80px 40px;
+    }
+    .pillar {
+      display: flex; gap: 28px; padding: 36px 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .pillar:last-child { border-bottom: none; }
+    .pillar-num {
+      width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+      background: #eef2fa; border: 1px solid #c8d6ee;
+      color: #082B66; font-size: 11px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; margin-top: 2px;
+    }
+    .pillar-body h2 {
+      font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 10px; letter-spacing: 0;
+    }
+    .pillar-body p { font-size: 15px; color: #475569; line-height: 1.8; }
+
+    /* CTA STRIP */
+    .cta-strip {
+      background: #0f172a; padding: 72px 40px; text-align: center;
+    }
+    .cta-strip h2 {
+      font-size: 26px; font-weight: 700; color: #fff; margin-bottom: 10px; letter-spacing: -0.02em;
+    }
+    .cta-strip p { font-size: 15px; color: #64748b; margin-bottom: 28px; }
+    .cta-strip .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #082B66; color: #fff; font-weight: 700; font-size: 14px;
+      padding: 12px 24px; border-radius: 10px; text-decoration: none;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2), 0 8px 24px rgba(13,148,136,0.35);
+      transition: background 0.15s, transform 0.15s;
+    }
+    .cta-strip .btn-primary:hover { background: #0a3580; transform: translateY(-1px); }
+
+    /* FOOTER */
+    footer { background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 24px 40px; text-align: center; }
+    footer p { font-size: 12px; color: #94a3b8; }
+    footer a { color: #94a3b8; text-decoration: none; }
+    footer a:hover { color: #082B66; }
+  </style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="wordmark">VATE</span>
+    </a>
+    <div style="display:flex;align-items:center;gap:10px">
+      <a href="https://app.vatemarine.com/login" style="font-size:13px;font-weight:500;color:#64748b;text-decoration:none;padding:6px 13px;border-radius:7px;transition:color 0.15s,background 0.15s" onmouseover="this.style.color='#0f172a';this.style.background='#f1f5f9'" onmouseout="this.style.color='#64748b';this.style.background='transparent'">Log in</a>
+      <a href="index.html#access" class="nav-cta">Request Demo</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <span class="mission-label">Mission</span>
+      <h1>Our Mission</h1>
+      <p class="mission-lead">VATE exists to simplify aquaculture operations through technology.</p>
+      <div class="mission-body">
+        <p>Aquaculture producers manage environmental conditions, infrastructure, inventory, compliance requirements, mortality events, and operational data across a growing number of disconnected systems.</p>
+        <p>We believe technology should make these operations easier to manage, not more complicated.</p>
+        <p>Our mission is to provide operational intelligence built specifically for aquaculture, helping producers improve visibility, reduce complexity, strengthen compliance, and make better decisions across their farms.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="pillars-section">
+
+    <div class="pillar">
+      <div class="pillar-num">01</div>
+      <div class="pillar-body">
+        <h2>Atlantic Canada Aquaculture</h2>
+        <p>Atlantic Canada's aquaculture industry is one of the most ecologically and economically significant in North America. From the tidal flats of Prince Edward Island to the cold inlets of Nova Scotia and New Brunswick, operators are producing high-quality shellfish and finfish under demanding environmental conditions — with little purpose-built technology to help them do it.</p>
+      </div>
+    </div>
+
+    <div class="pillar">
+      <div class="pillar-num">02</div>
+      <div class="pillar-body">
+        <h2>Operational Complexity</h2>
+        <p>Aquaculture operations involve coordinated logistics across multiple lease sites, seasonal variability, equipment, personnel, and live animal management — all simultaneously. The information required to run these operations safely is scattered across paper logbooks, spreadsheets, email threads, and disconnected government portals. That complexity costs operators time, money, and clarity.</p>
+      </div>
+    </div>
+
+    <div class="pillar">
+      <div class="pillar-num">03</div>
+      <div class="pillar-body">
+        <h2>Compliance Burden</h2>
+        <p>Operators navigate a dense web of federal and provincial obligations: DFO licences, CFIA movement permits, AAR reporting, biosecurity plans, water quality thresholds, and more. Keeping up with these requirements manually is error-prone and time-consuming. A missed deadline or an incomplete record can result in operational disruption and regulatory risk.</p>
+      </div>
+    </div>
+
+    <div class="pillar">
+      <div class="pillar-num">04</div>
+      <div class="pillar-body">
+        <h2>Environmental Monitoring</h2>
+        <p>Water quality, temperature, dissolved oxygen, algae concentrations, and proximity data from CFIA monitoring stations all affect production decisions. Operators need this information contextualized against their specific sites — not buried in raw data feeds or government spreadsheets they have to interpret themselves.</p>
+      </div>
+    </div>
+
+    <div class="pillar">
+      <div class="pillar-num">05</div>
+      <div class="pillar-body">
+        <h2>Mortality and Production Challenges</h2>
+        <p>Unexplained mortality events, growth underperformance, and stock condition anomalies are among the most costly challenges in aquaculture. Detecting these early requires connecting field observations, environmental conditions, and historical patterns — something that is nearly impossible without structured operational data.</p>
+      </div>
+    </div>
+
+    <div class="pillar">
+      <div class="pillar-num">06</div>
+      <div class="pillar-body">
+        <h2>Better Decisions Through Operational Intelligence</h2>
+        <p>VATE was built to solve these problems. By connecting compliance, field operations, monitoring, mapping, and reporting into a single platform, we give operators the data layer they need to make faster, more confident decisions — and spend less time on administration. Our mission is to make Atlantic Canada aquaculture more resilient, more compliant, and more productive.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="cta-strip">
+    <h2>Ready to see the platform?</h2>
+    <p>Book a demo and see how VATE fits your operation.</p>
+    <a href="index.html#access" class="btn-primary">
+      Request Demo
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+    </a>
+  </div>
+
+  <footer>
+    <p>© 2026 VATE Marine Intelligence Inc. &nbsp;·&nbsp; <a href="#">Privacy Policy</a> &nbsp;·&nbsp; <a href="#">Terms of Use</a></p>
+  </footer>
+
+</div>
+</body>
+</html>

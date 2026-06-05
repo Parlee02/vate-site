@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — VATE</title>
+  <meta name="description" content="Insights on aquaculture technology, compliance, environmental monitoring, and operational intelligence from the VATE team." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #0f172a; -webkit-font-smoothing: antialiased; }
+
+    /* NAV */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.94); backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid rgba(226,232,240,0.8);
+      box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+    }
+    .nav-inner {
+      max-width: 1280px; margin: 0 auto; padding: 0 40px;
+      height: 58px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .wordmark { font-size: 18px; font-weight: 700; color: #082B66; letter-spacing: 0.1em; font-family: 'Inter', sans-serif; line-height: 1; }
+
+    .nav-cta {
+      background: #082B66; color: #fff; font-weight: 600; font-size: 13px;
+      padding: 8px 20px; border-radius: 7px; text-decoration: none;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.15), 0 4px 14px rgba(8,43,102,0.28);
+      transition: background 0.15s, box-shadow 0.15s, transform 0.15s;
+      display: inline-block; letter-spacing: 0.01em;
+    }
+    .nav-cta:hover {
+      background: #0a3580;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.12), 0 6px 20px rgba(8,43,102,0.38);
+      transform: translateY(-1px);
+    }
+
+    /* PAGE */
+    .page-wrap { padding-top: 58px; }
+
+    .page-hero {
+      background: #fff; border-bottom: 1px solid #e2e8f0;
+      padding: 64px 40px 48px;
+    }
+    .page-hero-inner { max-width: 1280px; margin: 0 auto; }
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #082B66; margin-bottom: 14px; }
+    .page-hero h1 {
+      font-size: clamp(28px, 3.5vw, 42px); font-weight: 800; letter-spacing: -0.03em;
+      line-height: 1.1; color: #0f172a; margin-bottom: 12px;
+    }
+    .page-hero p { font-size: 16px; color: #64748b; line-height: 1.7; max-width: 480px; }
+
+    /* FILTERS */
+    .filters-bar {
+      background: #fff; border-bottom: 1px solid #e2e8f0;
+      padding: 0 40px; position: sticky; top: 58px; z-index: 10;
+    }
+    .filters-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; gap: 4px; overflow-x: auto; padding: 12px 0;
+      scrollbar-width: none;
+    }
+    .filters-inner::-webkit-scrollbar { display: none; }
+    .filter-btn {
+      flex-shrink: 0; padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 600;
+      border: 1px solid #e2e8f0; background: #fff; color: #64748b;
+      cursor: pointer; transition: all 0.15s; white-space: nowrap;
+    }
+    .filter-btn:hover { border-color: #082B66; color: #082B66; }
+    .filter-btn.active { background: #eef2fa; border-color: #c8d6ee; color: #082B66; }
+
+    /* CONTENT */
+    .blog-content { max-width: 1280px; margin: 0 auto; padding: 64px 40px; }
+
+    /* EMPTY STATE */
+    .empty-state { text-align: center; padding: 48px 0 64px; }
+    .empty-icon {
+      width: 48px; height: 48px; border-radius: 12px; border: 1px solid #e2e8f0; background: #fff;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
+    }
+    .empty-state h2 { font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 8px; }
+    .empty-state p { font-size: 14px; color: #64748b; line-height: 1.7; max-width: 380px; margin: 0 auto; }
+
+    /* PREVIEW CARDS */
+    .preview-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px;
+    }
+    .preview-card {
+      background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 22px;
+      opacity: 0.55; pointer-events: none;
+    }
+    .preview-tag {
+      display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; padding: 3px 9px; border-radius: 4px; margin-bottom: 14px;
+      background: #eef2fa; border: 1px solid #c8d6ee; color: #082B66;
+    }
+    .preview-card h3 { font-size: 14px; font-weight: 700; color: #0f172a; line-height: 1.4; margin-bottom: 8px; }
+    .preview-card p { font-size: 12px; color: #64748b; line-height: 1.6; }
+    .preview-card .coming-soon { font-size: 11px; font-weight: 700; color: #cbd5e1; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 14px; }
+
+    @media (max-width: 768px) { .preview-grid { grid-template-columns: 1fr; } }
+
+    /* FOOTER */
+    footer { background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 24px 40px; text-align: center; }
+    footer p { font-size: 12px; color: #94a3b8; }
+    footer a { color: #94a3b8; text-decoration: none; }
+    footer a:hover { color: #082B66; }
+  </style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="wordmark">VATE</span>
+    </a>
+    <div style="display:flex;align-items:center;gap:10px">
+      <a href="https://app.vatemarine.com/login" style="font-size:13px;font-weight:500;color:#64748b;text-decoration:none;padding:6px 13px;border-radius:7px;transition:color 0.15s,background 0.15s" onmouseover="this.style.color='#0f172a';this.style.background='#f1f5f9'" onmouseout="this.style.color='#64748b';this.style.background='transparent'">Log in</a>
+      <a href="index.html#access" class="nav-cta">Request Demo</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <p class="section-label">VATE Blog</p>
+      <h1>Insights on aquaculture operations.</h1>
+      <p>Perspectives on technology, compliance, environmental monitoring, and the future of Atlantic Canada aquaculture.</p>
+    </div>
+  </div>
+
+  <div class="filters-bar">
+    <div class="filters-inner">
+      <button class="filter-btn active">All</button>
+      <button class="filter-btn">Aquaculture Technology</button>
+      <button class="filter-btn">Environmental Monitoring</button>
+      <button class="filter-btn">Compliance</button>
+      <button class="filter-btn">Mortality Management</button>
+      <button class="filter-btn">Industry Insights</button>
+      <button class="filter-btn">Shellfish Aquaculture</button>
+    </div>
+  </div>
+
+  <div class="blog-content">
+
+    <div class="empty-state">
+      <div class="empty-icon">
+        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#082B66" stroke-width="1.8">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+        </svg>
+      </div>
+      <h2>Content coming soon</h2>
+      <p>We're working on our first articles covering aquaculture technology, compliance, environmental monitoring, mortality management, and operational intelligence for Atlantic Canada operators.</p>
+    </div>
+
+    <div class="preview-grid">
+      <div class="preview-card">
+        <div class="preview-tag">Compliance</div>
+        <h3>Understanding DFO AAR Reporting Requirements</h3>
+        <p>A breakdown of what operators need to submit, when, and how to prepare for annual aquaculture reporting.</p>
+        <p class="coming-soon">Coming soon</p>
+      </div>
+      <div class="preview-card">
+        <div class="preview-tag">Environmental Monitoring</div>
+        <h3>Reading CFIA Station Data for Shellfish Operators</h3>
+        <p>How to use open monitoring data to make better daily stocking and harvest decisions.</p>
+        <p class="coming-soon">Coming soon</p>
+      </div>
+      <div class="preview-card">
+        <div class="preview-tag">Aquaculture Technology</div>
+        <h3>Why Aquaculture Needs a Purpose-Built Platform</h3>
+        <p>Generic software wasn't designed for tidal variability, movement permits, or DFO compliance obligations.</p>
+        <p class="coming-soon">Coming soon</p>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>© 2026 VATE Marine Intelligence Inc. &nbsp;·&nbsp; <a href="#">Privacy Policy</a> &nbsp;·&nbsp; <a href="#">Terms of Use</a></p>
+  </footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('.filter-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

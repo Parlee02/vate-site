@@ -55,7 +55,7 @@ export default function Home() {
           </h1>
 
           <p className="mt-3 text-2xl font-medium text-[#8B1E3F]">
-            Digital Products, Simplified
+            VATE connects compliance, field operations, environmental monitoring, mapping, and reporting into one connected operational system for aquaculture operators.
           </p>
 
           <a
