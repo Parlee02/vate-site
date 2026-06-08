@@ -930,10 +930,34 @@
 
 
 <script>
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
-    e.currentTarget.style.display = 'none'
-    document.getElementById('form-success').style.display = 'block'
+    const form = e.currentTarget
+    const btn = form.querySelector('button[type="submit"]')
+    btn.textContent = 'Sending…'
+    btn.disabled = true
+
+    const data = {
+      name:      document.getElementById('demo-name').value,
+      email:     document.getElementById('demo-email').value,
+      company:   document.getElementById('demo-optype').value + (document.getElementById('demo-province').value ? ' — ' + document.getElementById('demo-province').value : ''),
+      message:   document.getElementById('demo-challenge').value,
+    }
+
+    try {
+      const res = await fetch('https://app.vatemarine.com/api/demo-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      if (!res.ok) throw new Error()
+      form.style.display = 'none'
+      document.getElementById('form-success').style.display = 'block'
+    } catch {
+      btn.textContent = 'Request a Demo →'
+      btn.disabled = false
+      alert('Something went wrong. Please email us at contact@vatemarine.com')
+    }
   }
 
   function initVateMap() {
@@ -1019,6 +1043,7 @@
       <a href="index.html" class="ft-wordmark">VATE</a>
       <p class="ft-tagline">Operational intelligence for aquaculture.</p>
       <a href="mailto:contact@vatemarine.com" class="ft-email">contact@vatemarine.com</a>
+      <a href="tel:+15068633625" class="ft-email" style="margin-top:4px">1 (506) 863-3625</a>
     </div>
 
     <!-- Right: social icons -->
